@@ -275,6 +275,23 @@
 
   .outlet { color: var(--hue); font-weight: 600; }
 
+  /* Stories published today, called out and sorted to the top of their
+     section. Publication times are not available from any reachable source,
+     so same-day is the finest freshness distinction the brief can honestly
+     make — see the note in the colophon. */
+  .fresh {
+    color: var(--hue);
+    font-weight: 700;
+    border: 1px solid color-mix(in oklab, var(--hue) 45%, transparent);
+    border-radius: 999px;
+    padding: 0.05rem 0.4rem;
+    line-height: 1.5;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fresh { transition: border-color 0.2s ease; }
+  }
+
   .summary {
     font-size: 0.9375rem;
     line-height: 1.6;
@@ -363,21 +380,22 @@
 <body>
 <div class="wrap">
 
+
   <header class="masthead">
     <div class="dateline">
       <span>Evening edition</span>
       <span>Monday 3 August 2026</span>
-      <span>19:45 BST</span>
+      <span>20:30 BST</span>
     </div>
     <h1>Evening Brief</h1>
     <div class="dateline">
-      <span>25 headlines &middot; 5 topics &middot; 9 outlets</span>
+      <span>15 headlines &middot; 8 outlets &middot; last 24 hours only</span>
     </div>
   </header>
 
   <div class="lede">
     <span class="lede-label">Story of the day</span>
-    <p>Trump said talks with Tehran would start today. Tehran said no talks are happening. <a href="https://www.cbsnews.com/live-updates/iran-war-donald-trump-us-denies-negotiations-begin-strikes-called-off/">He then called Iran &ldquo;unbelievably duplicitous&rdquo;</a> &mdash; unwinding the de-escalation trade that had lifted equities and knocked oil back this morning.</p>
+    <p>Trump said talks with Tehran would start today. Tehran said no talks are happening. <a href="https://www.nbcnews.com/world/iran/trump-iran-talks-attacks-canceled-hormuz-nuclear-rcna590535">He then called Iran&rsquo;s leadership &ldquo;extremely duplicitous&rdquo;</a> &mdash; after a day in which oil fell more than 6% and equities rallied on a de-escalation that has not actually been agreed.</p>
   </div>
 
   <nav class="jump" aria-label="Topics">
@@ -394,34 +412,29 @@
     <section class="topic" id="finance" style="--hue: var(--t-finance)">
       <div class="topic-head">
         <span class="topic-label">Finance</span>
-        <span class="topic-count">5</span>
+        <span class="topic-count">4</span>
       </div>
-      <p class="standfirst">Equities took the de-escalation trade and ran with it this morning; the bond market was less convinced, and Tehran's denial arrived after the rally. Everything here is a bet on an Iran headline that did not hold.</p>
+      <p class="standfirst">Crude gave back months of war premium and the dollar&rsquo;s slide against the yen was halted by force &mdash; two of the largest single-day moves of the year, both traceable to the same Iran headline.</p>
       <ul class="stories">
         <li>
-          <a class="headline" href="https://www.cnbc.com/2026/08/02/stock-market-today-live-updates.html">Stocks rally, fuelled by gains in Big Tech and a drop in oil prices</a>
-          <div class="meta"><span class="outlet">CNBC</span><span>Live blog</span></div>
-          <p class="summary">The Dow traded around 613 points higher (1.2%), the S&amp;P 500 up 1.5% and the Nasdaq up 2.2%. Meta rose almost 7% and Amazon gained more than 6% to touch a $3 trillion market capitalisation.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.cnn.com/business/live-news/stock-market-news-today-100219">What's moving markets today</a>
-          <div class="meta"><span class="outlet">CNN Business</span><span>Live</span></div>
-          <p class="summary">CNN's rolling markets thread — the place to check whether the afternoon reversal in the Iran story pulled equities back before the close.</p>
-        </li>
-        <li>
           <a class="headline" href="https://www.cnbc.com/2026/08/03/us-treasury-yields-investors-bonds-war.html">US Treasury yields fall as oil prices plunge on Iran de-escalation hopes</a>
-          <div class="meta"><span class="outlet">CNBC</span><span>3 Aug</span></div>
-          <p class="summary">Yields retreated as crude sold off on the news that talks would restart — precisely the trade that Tehran's denial later in the day puts in question.</p>
+          <div class="meta"><span class="outlet">CNBC</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">Yields retreated as crude sold off on the prospect of talks restarting. The move rests entirely on a de-escalation that Tehran spent the afternoon denying.</p>
         </li>
         <li>
-          <a class="headline" href="https://www.euronews.com/business/2026/07/27/oil-prices-plunge-as-us-and-iran-pause-strikes-over-strait-of-hormuz">Oil prices plunge as US and Iran pause strikes over Strait of Hormuz</a>
-          <div class="meta"><span class="outlet">Euronews</span><span>27 Jul</span></div>
-          <p class="summary">September Brent fell 4.66% to $92.27 and WTI 5.02% to $84.83 when the strikes paused, after Brent had touched $102 the week before. That swing is the range today's move is trading inside.</p>
+          <a class="headline" href="https://www.france24.com/en/live-news/20260803-oil-prices-sink-on-middle-east-hopes-yen-extends-gains-after-joint-intervention">Oil prices sink on Middle East hopes, yen extends gains after joint intervention</a>
+          <div class="meta"><span class="outlet">France 24</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">Crude futures slid more than 6% at the Asian open, with WTI down 4.7% to $80.72. The one wire story tying together the day&rsquo;s two big moves &mdash; oil and the yen.</p>
         </li>
         <li>
-          <a class="headline" href="https://www.aljazeera.com/economy/2026/7/29/us-fed-holds-interest-rates-steady-citing-elevated-inflation">US Fed holds interest rates steady, citing 'elevated' inflation</a>
-          <div class="meta"><span class="outlet">Al Jazeera</span><span>29 Jul</span></div>
-          <p class="summary">The committee split 9–3 to hold at 3.5–3.75%, with three members preferring a rise. The Fed named energy supply shocks from the Iran war as a reason inflation is still above its 2% goal.</p>
+          <a class="headline" href="https://www.aljazeera.com/economy/2026/8/3/japan-and-us-confirm-rare-joint-intervention-to-prop-up-yen">Japan and US confirm rare joint intervention to prop up yen</a>
+          <div class="meta"><span class="outlet">Al Jazeera</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">The first coordinated Tokyo&ndash;Washington action since 2011. The dollar fell to 157.84 yen from a near 40-year low of 164 last week, and both sides said they would step in again if needed.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/08/02/stock-market-today-live-updates.html">Stocks rally, fuelled by gains in Big Tech and a drop in oil prices</a>
+          <div class="meta"><span class="outlet">CNBC</span><time datetime="2026-08-02">2 Aug</time><span>Live blog</span></div>
+          <p class="summary">The Dow closed 681 points higher (1.3%), the S&amp;P 500 up 1.6% and the Nasdaq up 2.3%. Meta rose almost 6% and Amazon touched a $3 trillion market capitalisation.</p>
         </li>
       </ul>
     </section>
@@ -430,70 +443,51 @@
     <section class="topic" id="economy" style="--hue: var(--t-economy)">
       <div class="topic-head">
         <span class="topic-label">Economy</span>
-        <span class="topic-count">5</span>
+        <span class="topic-count">2</span>
       </div>
-      <p class="standfirst">Growth is slowing while inflation refuses to come down, and manufacturers now describe the uncertainty as worse than the pandemic. Markets put a September Fed hike at 64.5% by midday today, down from about 82% in late July — entirely on the Iran headlines.</p>
+      <p class="standfirst">Two policy interventions landed on the same day: OPEC+ completed its supply rollback, and the US Treasury joined Tokyo in the currency market for the first time in fifteen years.</p>
       <ul class="stories">
         <li>
-          <a class="headline" href="https://www.npr.org/2026/07/30/nx-s1-5912203/federal-reserve-holds-interest-rates-steady-despite-high-inflation">Federal Reserve holds interest rates steady despite high inflation</a>
-          <div class="meta"><span class="outlet">NPR</span><span>30 Jul</span></div>
-          <p class="summary">The FOMC left its key rate at 3.5%&ndash;3.75% on a 9&ndash;3 vote, with three dissenters wanting a rise. Markets are trading as though higher rates are coming regardless.</p>
+          <a class="headline" href="https://www.npr.org/2026/08/03/g-s1-136866/us-dollar-japanese-yen-market-interventions">US dollar weakens sharply against the Japanese yen after market interventions</a>
+          <div class="meta"><span class="outlet">NPR</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">Why Washington acted on a currency it normally leaves alone: a yen at 164 was making Japanese exports cheap and American goods expensive, at a moment when neither government wanted a trade fight on top of an energy shock.</p>
         </li>
         <li>
-          <a class="headline" href="https://www.cnbc.com/2026/08/03/manufacturing-survey-shows-inflation-worries-adding-to-pressure-on-fed.html">Manufacturing survey shows inflation worries 'worse than pandemic era'</a>
-          <div class="meta"><span class="outlet">CNBC</span><span>3 Aug</span></div>
-          <p class="summary">The ISM July survey came in at 55.6, the fastest expansion in more than four years, led by export orders and a 6.3-point jump in production. Manufacturers describe geopolitical uncertainty as worse than Covid.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.cnn.com/2026/07/13/economy/inflation-prices">Don't be fooled: America's inflation problems aren't going away anytime soon</a>
-          <div class="meta"><span class="outlet">CNN Business</span><span>13 Jul</span></div>
-          <p class="summary">On sticky services inflation — haircuts, doctor visits, car repairs — which has now run above target for more than five years and is the part an oil-price reversal does not fix.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.france24.com/en/live-news/20260730-eurozone-economy-grows-despite-middle-east-war">Eurozone economy grows despite Middle East war</a>
-          <div class="meta"><span class="outlet">France 24</span><span>30 Jul</span></div>
-          <p class="summary">The bloc expanded 0.4% in Q2, double the 0.2% forecast, holding up better than expected against the energy shock. The ECB, on hold at 2.25%, faces its own September question.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.aljazeera.com/economy/2026/7/30/us-gdp-growth-dips-as-inflation-and-trade-deficits-pressure-economy">US GDP growth dips as inflation and trade deficits pressure economy</a>
-          <div class="meta"><span class="outlet">Al Jazeera</span><span>30 Jul</span></div>
-          <p class="summary">Q2 growth cooled to 1.5% from 2.1% in Q1, with the PCE price index up 3.7% year on year in June and widening deficits subtracting from the headline.</p>
+          <a class="headline" href="https://www.cnbc.com/2026/08/03/trump-ceasefire-nuclear-deal-strait-of-hormuz-opec-oil-output-.html">Markets exhale as Trump steps back and OPEC+ steps up</a>
+          <div class="meta"><span class="outlet">CNBC</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">OPEC+ approved roughly 188,000 more barrels a day from September, completing the rollback of the 1.65m bpd cut agreed in 2023. Extra supply arriving just as the war premium deflates.</p>
         </li>
       </ul>
+      <p class="standfirst">Only two economy stories cleared the 24-hour window. The section is short rather than padded &mdash; see the note on sourcing at the foot of the page.</p>
     </section>
 
     <!-- ============ AI ============ -->
     <section class="topic" id="ai" style="--hue: var(--t-ai)">
       <div class="topic-head">
         <span class="topic-label">AI</span>
-        <span class="topic-count">5</span>
+        <span class="topic-count">4</span>
       </div>
-      <p class="standfirst">Brussels switched on real enforcement powers today, days after OpenAI's own agents were used to break into companies — and while the money financing the build-out looks increasingly circular.</p>
+      <p class="standfirst">Both sides of the Atlantic moved on frontier-model oversight within a day of each other &mdash; Brussels with binding powers and fines, Washington with a meeting and a request.</p>
       <ul class="stories">
         <li>
           <a class="headline" href="https://www.cnbc.com/2026/08/03/eu-ai-act-enforcement-powers.html">OpenAI and Anthropic face new scrutiny as EU AI Act enforcement powers kick in</a>
-          <div class="meta"><span class="outlet">CNBC</span><span>3 Aug</span></div>
-          <p class="summary">The Commission can now inspect models, demand evaluations before EU release, restrict market access and fine providers up to &euro;15m or 3% of annual turnover. Brussels is already in contact with OpenAI and Anthropic after the recent model-driven cyberattacks.</p>
+          <div class="meta"><span class="outlet">CNBC</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">The Commission can now inspect models, demand evaluations before EU release, restrict market access and levy fines. Rules for high-risk uses in hiring, credit and healthcare became fully binding today.</p>
         </li>
         <li>
-          <a class="headline" href="https://www.aljazeera.com/economy/2026/7/29/sam-altman-meets-lawmakers-on-back-of-openai-agents-hacking-companies">Sam Altman meets lawmakers after OpenAI agents were used to hack companies</a>
-          <div class="meta"><span class="outlet">Al Jazeera</span><span>29 Jul</span></div>
-          <p class="summary">Altman went to Capitol Hill after OpenAI's agent products were turned on companies in a run of cyberattacks — the same incidents Brussels cites above. Agent misuse, not model capability, is what has regulators moving on both sides of the Atlantic.</p>
+          <a class="headline" href="https://edition.cnn.com/2026/08/03/tech/white-house-meet-with-top-ai-companies-big-regulation-push">White House to meet OpenAI, Anthropic and other top AI companies in first big regulation push</a>
+          <div class="meta"><span class="outlet">CNN Business</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">Tuesday&rsquo;s meeting covers a framework for reviewing frontier models before launch. Unlike Brussels, Washington is asking rather than compelling: submission would be voluntary, up to 30 days ahead of release.</p>
         </li>
         <li>
-          <a class="headline" href="https://www.nbcnews.com/tech/tech-news/experts-say-money-guiding-ai-industry-debate-open-closed-tech-rcna589495">The AI industry is picking sides on open or closed tech. Experts say follow the money</a>
-          <div class="meta"><span class="outlet">NBC News</span></div>
-          <p class="summary">Nvidia, Microsoft and Meta have lined up behind open-weight models, while OpenAI and Anthropic — the closed-weight leaders — stayed out of that alliance. Who funds whom explains the split better than any argument about safety.</p>
+          <a class="headline" href="https://www.euronews.com/my-europe/2026/08/02/eu-rules-on-ai-models-become-enforceable-whats-going-to-change">EU rules on AI models become enforceable. What's going to change?</a>
+          <div class="meta"><span class="outlet">Euronews</span><time datetime="2026-08-02">2 Aug</time></div>
+          <p class="summary">The practical guide to what took effect: transparency and documentation duties for advanced models, with penalties reaching 7% of global annual revenue for providers that ignore them.</p>
         </li>
         <li>
           <a class="headline" href="https://www.npr.org/2026/08/02/nx-s1-5913352/nvidia-is-about-to-spend-750-billion-on-ai">Nvidia is about to spend $750 billion on AI. Critics are calling it a bubble</a>
-          <div class="meta"><span class="outlet">NPR</span><span>2 Aug</span></div>
-          <p class="summary">The case that the AI build-out is financing itself in a circle: Nvidia backstops OpenAI's data centres, AMD puts $5bn into Anthropic which then buys AMD chips, and Google and Amazon fund a customer for their own silicon.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.euronews.com/business/2026/02/16/big-techs-ai-spending-is-ballooning-but-will-it-crush-europe">Analysis: will Big Tech's colossal AI spending crush Europe's data sovereignty?</a>
-          <div class="meta"><span class="outlet">Euronews</span><span>Analysis</span></div>
-          <p class="summary">Background to today's EU move. Morgan Stanley expects hyperscalers to borrow around $400bn in 2026, more than double 2025 — the scale of capital European regulators are now trying to set terms for.</p>
+          <div class="meta"><span class="outlet">NPR</span><time datetime="2026-08-02">2 Aug</time></div>
+          <p class="summary">The case that the build-out is financing itself in a circle: Nvidia backstops OpenAI&rsquo;s data centres, AMD puts $5bn into Anthropic which then buys AMD chips, and Google and Amazon fund a customer for their own silicon.</p>
         </li>
       </ul>
     </section>
@@ -502,34 +496,13 @@
     <section class="topic" id="uk" style="--hue: var(--t-uk)">
       <div class="topic-head">
         <span class="topic-label">UK Politics</span>
-        <span class="topic-count">5</span>
+        <span class="topic-count">0</span>
       </div>
-      <p class="standfirst">Two weeks in, Burnham has bought goodwill with three cost-of-living giveaways. The bill for them, and the gilt market's opinion of it, is John Healey's problem — and Farage is already demanding a general election.</p>
+      <p class="standfirst">Nothing in this section today, and the reason is structural rather than a quiet news day.</p>
       <ul class="stories">
         <li>
-          <a class="headline" href="https://www.nbcnews.com/world/united-kingdom/uks-burnham-targets-lower-energy-bills-first-move-pm-rcna588496">Burnham targets lower energy bills in first move as PM</a>
-          <div class="meta"><span class="outlet">NBC News</span></div>
-          <p class="summary">From 1 October, VAT comes off domestic electricity bills — about &pound;45 a year for the average household — funded by scrapping Starmer's digital ID scheme, which would have cost &pound;1.8bn.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.cnn.com/2026/07/20/world/live-news/andy-burnham-uk-prime-minister-intl">Burnham pledges to end instability; Farage calls for a general election</a>
-          <div class="meta"><span class="outlet">CNN</span><span>20 Jul &middot; Live</span></div>
-          <p class="summary">Burnham promised his leadership would be a "circuit breaker" bringing "the biggest changes in the last 40 years". Farage's reply: he "cannot be allowed" to do that without a mandate.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.france24.com/en/live-news/20260726-burnham-offers-sweeteners-hopeful-vibes-in-first-week-as-uk-pm">Burnham offers sweeteners and hopeful vibes in first week as UK PM</a>
-          <div class="meta"><span class="outlet">France 24</span><span>26 Jul</span></div>
-          <p class="summary">Alongside the VAT cut: a cap on most bus fares in England and a 20% cut in business rates for pubs, clubs and live music venues. Three modest, visible cost-of-living measures.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.euronews.com/my-europe/2026/06/29/burnham-vows-to-rewire-britain-with-devolution-push-and-no-10-north-in-manchester">Burnham vows to 'rewire Britain' with devolution push and 'No. 10 North' in Manchester</a>
-          <div class="meta"><span class="outlet">Euronews</span><span>29 Jun</span></div>
-          <p class="summary">The programme behind this week's announcements: sweeping new powers for local leaders and part of the prime minister's operation moved to Manchester — the "Manchesterism" he built as mayor, applied nationally.</p>
-        </li>
-        <li>
-          <a class="headline" href="https://www.npr.org/2026/07/19/g-s1-134001/andy-burnham-new-british-prime-minister">What to know about Andy Burnham, the new UK prime minister</a>
-          <div class="meta"><span class="outlet">NPR</span><span>19 Jul</span></div>
-          <p class="summary">The primer, if you have not followed the leadership contest: how the Greater Manchester mayor took the party, and why Labour MPs concluded he was the one who could take on Reform.</p>
+          <p class="summary">Every UK outlet that reliably datestamps its stories &mdash; the BBC, the Guardian, Sky News, the Independent, the Evening Standard, Politico &mdash; blocks the automated reader this brief is built with. What stays reachable for Westminster is GB News, whose article URLs carry no date, and the London bureaux of CNN, NBC, France 24 and Euronews, none of which filed on UK politics in the past 24 hours.</p>
+          <p class="summary">Rather than run last month&rsquo;s stories under today&rsquo;s date, the section is left empty. <a href="https://www.bbc.com/news/politics">BBC UK Politics</a> is free to read in your browser and is the fastest fix while this stands.</p>
         </li>
       </ul>
     </section>
@@ -540,32 +513,32 @@
         <span class="topic-label">Iran War</span>
         <span class="topic-count">5</span>
       </div>
-      <p class="standfirst">The day's whole story is a contradiction: Washington says negotiations have started, Tehran says they have not. What appears real is an Iran&ndash;Oman deal on Hormuz transit, said to be in its final stages.</p>
+      <p class="standfirst">Trump called off the largest planned strike of the war and announced talks; Tehran said the talks do not exist. Both statements stood at the close, and the whole market move rests on which one turns out to be true.</p>
       <ul class="stories">
         <li>
-          <a class="headline" href="https://www.cbsnews.com/live-updates/iran-war-donald-trump-us-denies-negotiations-begin-strikes-called-off/">Trump calls Iran 'unbelievably duplicitous' after Tehran denies his claim talks are resuming</a>
-          <div class="meta"><span class="outlet">CBS News</span><span>3 Aug &middot; Live</span></div>
-          <p class="summary">Trump said Iran asked for a meeting — "some would say beg" — then publicly denied any discussions were happening. He also said a plan was ready for "the biggest attack since World War II" and that he halted it for diplomacy.</p>
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/3/trump-says-new-iran-negotiations-starting-what-we-know">Trump says new Iran negotiations starting: what we know</a>
+          <div class="meta"><span class="outlet">Al Jazeera</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">Sorts the claims from the confirmed. Tehran&rsquo;s foreign ministry says it is negotiating with Oman about safe passage through Hormuz, not with Washington about anything.</p>
         </li>
         <li>
-          <a class="headline" href="https://www.npr.org/2026/08/03/g-s1-136916/iran-war-trump-us-peace-negotiations">Iran denies peace negotiations, contradicting Trump's announcement</a>
-          <div class="meta"><span class="outlet">NPR</span><span>3 Aug</span></div>
-          <p class="summary">The cleanest write-up of the contradiction. Tehran says it is talking only to Oman, about temporarily reopening the Strait of Hormuz, and to no one in Washington.</p>
+          <a class="headline" href="https://www.euronews.com/2026/08/03/trump-says-new-iran-talks-set-to-start-on-monday-after-calling-off-massive-attack">Trump says new Iran talks set to start on Monday after calling off massive attack</a>
+          <div class="meta"><span class="outlet">Euronews</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">The strike Trump cancelled would have been the largest of the war, aimed at energy infrastructure. He said &ldquo;the perimeters of a deal&rdquo; had been agreed; Iran denies asking him to hold off.</p>
         </li>
         <li>
-          <a class="headline" href="https://www.cnn.com/2026/08/02/world/live-news/iran-war-trump">Live updates: Iran discusses a Strait of Hormuz deal with Oman but denies talks planned with the US</a>
-          <div class="meta"><span class="outlet">CNN</span><span>Live</span></div>
-          <p class="summary">The rolling thread, useful for tracking whether either account holds overnight. Trump has said Hormuz could open fully by Tuesday in what he calls "phase one".</p>
+          <a class="headline" href="https://www.cbsnews.com/live-updates/iran-war-donald-trump-us-denies-negotiations-begin-strikes-called-off/">Despite Trump's remarks, no new negotiations with Iran are planned, US officials tell CBS News</a>
+          <div class="meta"><span class="outlet">CBS News</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time><span>Live blog</span></div>
+          <p class="summary">US officials contradicting their own president on whether the talks exist at all. The most consequential line of the day, and it came from Washington rather than Tehran.</p>
         </li>
         <li>
-          <a class="headline" href="https://www.aljazeera.com/news/2026/8/3/trump-says-new-iran-negotiations-starting-what-we-know">Trump says new Iran negotiations are starting: what we know</a>
-          <div class="meta"><span class="outlet">Al Jazeera</span><span>3 Aug</span></div>
-          <p class="summary">Foreign Minister Abbas Araghchi says the Tehran&ndash;Oman negotiations on future management of the Strait are in their "final stages" — a temporary safe route, not a US agreement.</p>
+          <a class="headline" href="https://www.nbcnews.com/world/iran/trump-iran-talks-attacks-canceled-hormuz-nuclear-rcna590535">Trump calls Iranian leadership &lsquo;extremely duplicitous&rsquo; after Tehran denies new talks</a>
+          <div class="meta"><span class="outlet">NBC News</span><span class="fresh">Today</span><time datetime="2026-08-03">3 Aug</time></div>
+          <p class="summary">Trump&rsquo;s response to the denial, and Iran&rsquo;s acting defence minister dismissing the pullback as &ldquo;psychological operations&rdquo;. Positions hardened over the course of the afternoon.</p>
         </li>
         <li>
-          <a class="headline" href="https://english.alarabiya.net/News/middle-east/2026/08/03/iran-says-no-current-talks-with-us">Iran says no current talks with the US</a>
-          <div class="meta"><span class="outlet">Al Arabiya</span><span>3 Aug</span></div>
-          <p class="summary">Foreign ministry spokesperson Esmaeil Baghaei's statement, reported from the region — worth reading alongside the US coverage for how the denial is being framed locally.</p>
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/2/no-breakthrough-on-strait-of-hormuz-as-trump-halts-attack-on-iran">No breakthrough on Strait of Hormuz as Trump halts attack on Iran</a>
+          <div class="meta"><span class="outlet">Al Jazeera</span><time datetime="2026-08-02">2 Aug</time></div>
+          <p class="summary">Yesterday&rsquo;s groundwork: the strait stayed shut even as the strike was called off. Reopening it is the one deliverable Trump has attached his name to.</p>
         </li>
       </ul>
     </section>
@@ -574,22 +547,26 @@
 
   <div class="direct">
     <span class="direct-label">Read direct &mdash; not summarised above</span>
-    <p>BBC and Reuters block the automated reader this brief is built with, so their stories cannot be quoted or summarised here. Both are free to read in your browser, so these go straight to the relevant sections:</p>
+    <p>These outlets block the automated reader this brief is built with, so their stories cannot be quoted or summarised here. All are free to read in your browser. The Drudge Report is an aggregator with no articles of its own, so it belongs here too rather than among the headlines.</p>
     <div class="direct-links">
       <a href="https://www.bbc.com/news/business">BBC Business</a>
       <a href="https://www.bbc.com/news/politics">BBC UK Politics</a>
       <a href="https://www.bbc.com/news/world/middle_east">BBC Middle East</a>
-      <a href="https://www.bbc.com/news/technology">BBC Technology</a>
       <a href="https://www.reuters.com/business/finance/">Reuters Finance</a>
       <a href="https://www.reuters.com/business/energy/">Reuters Energy</a>
+      <a href="https://www.independent.co.uk/news/uk/politics">Independent Politics</a>
+      <a href="https://www.standard.co.uk/news/politics">Evening Standard Politics</a>
+      <a href="https://www.politico.eu/">Politico Europe</a>
+      <a href="https://drudgereport.com/">Drudge Report</a>
     </div>
   </div>
 
   <footer class="colophon">
-    <p><strong>Sources.</strong> Nine outlets in this edition — CNBC, CNN, NPR, CBS News, NBC News, Al Jazeera, France 24, Euronews and Al Arabiya — all free to read without a subscription. CNBC supplies 8 of the 25 headlines, mostly on markets; no other outlet supplies more than five.</p>
-    <p><strong>What could not be included.</strong> Reuters, BBC, DW and Le Monde block this agent's reader at every domain tested, including their RSS feeds; the Guardian, AP, Sky News, the Independent and Politico do the same. Routing around a publisher's block through a third-party proxy is not something this agent will do, so those outlets appear as direct links only. El País English was searched and surfaced nothing on these topics today.</p>
-    <p><strong>Permanent address:</strong> <a href="https://silmerem.github.io/Code/news/">silmerem.github.io/Code/news</a> — this page is rebuilt in place every morning at 6am UK time, so the link never changes. Bookmark it on any device.</p>
-    <p><strong>This is an off-schedule run</strong>, produced at 19:45 on 3 August instead of the usual 06:02. Instructions for the agent live in <code>news-agent/PROMPT.md</code>.</p>
+    <p><strong>Last 24 hours only.</strong> Every headline here was published today or yesterday. Stories marked <span class="fresh">Today</span> are same-day and sort to the top of their section. Publication <em>times</em> are deliberately absent: no reachable source provides them &mdash; search returns no date metadata, and article pages refuse the reader outright &mdash; so an hour printed on these lines would be invented. Dates are cross-checked against the article URL wherever the outlet puts one there, which covers 13 of these 15 headlines; CBS News and NBC News do not, and their dates come from the events the stories describe.</p>
+    <p><strong>Sources.</strong> Eight outlets &mdash; CNBC, CNN, NPR, CBS News, NBC News, Al Jazeera, France 24 and Euronews &mdash; all free to read without a subscription. No outlet supplies more than four of the fifteen headlines, and none more than two within a single section.</p>
+    <p><strong>What could not be included.</strong> Reuters, BBC, DW, Le Monde, the Guardian, AP, Sky News, the Independent, the Evening Standard and Politico all block this agent&rsquo;s reader, RSS feeds included. Fox News and GB News are reachable and now in the roster, but neither datestamps its URLs and neither filed anything that could be placed inside today&rsquo;s window. Routing around a publisher&rsquo;s block through a third-party proxy is not something this agent will do, so those outlets appear as direct links only.</p>
+    <p><strong>Permanent address:</strong> <a href="https://silmerem.github.io/Code/news/">silmerem.github.io/Code/news</a> &mdash; rebuilt in place every morning at 6am UK time, so the link never changes. Bookmark it on any device.</p>
+    <p><strong>This is an off-schedule run</strong>, produced on the evening of 3 August instead of the usual 06:02. Instructions for the agent live in <code>news-agent/PROMPT.md</code>.</p>
   </footer>
 
 </div>
