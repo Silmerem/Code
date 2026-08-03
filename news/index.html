@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Evening Brief — Monday 3 August 2026</title>
+<meta name="description" content="Daily brief: Finance, Economy, AI, UK Politics and the Iran war. Headlines and links to free English-language coverage.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128240;</text></svg>">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body, div, span, h1, h2, h3, p, a, ul, li, nav, section, main, header, footer, code, strong {
+    margin: 0; padding: 0; border: 0; font: inherit; vertical-align: baseline;
+  }
+  ul { list-style: none; }
+  img { max-width: 100%; }
+  html { -webkit-text-size-adjust: 100%; }
+</style>
+<style>
+  :root {
+    --paper:      #FBFAF7;
+    --ink:        #16181D;
+    --ink-soft:   #3D424B;
+    --muted:      #6B7078;
+    --rule:       #DFDBD2;
+    --rule-soft:  #ECE8E0;
+
+    --t-finance:  #1F4B99;
+    --t-economy:  #2F6B4F;
+    --t-ai:       #6B4A9E;
+    --t-uk:       #8A4B2A;
+    --t-iran:     #9E3B3B;
+
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", Times, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:     #101216;
+      --ink:       #EDEAE4;
+      --ink-soft:  #C2BFB8;
+      --muted:     #8A9099;
+      --rule:      #2A2E36;
+      --rule-soft: #1E222A;
+
+      --t-finance: #7FA8E8;
+      --t-economy: #6FBF95;
+      --t-ai:      #B394E8;
+      --t-uk:      #D89268;
+      --t-iran:    #E28080;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:     #101216;
+    --ink:       #EDEAE4;
+    --ink-soft:  #C2BFB8;
+    --muted:     #8A9099;
+    --rule:      #2A2E36;
+    --rule-soft: #1E222A;
+
+    --t-finance: #7FA8E8;
+    --t-economy: #6FBF95;
+    --t-ai:      #B394E8;
+    --t-uk:      #D89268;
+    --t-iran:    #E28080;
+  }
+
+  :root[data-theme="light"] {
+    --paper:     #FBFAF7;
+    --ink:       #16181D;
+    --ink-soft:  #3D424B;
+    --muted:     #6B7078;
+    --rule:      #DFDBD2;
+    --rule-soft: #ECE8E0;
+
+    --t-finance: #1F4B99;
+    --t-economy: #2F6B4F;
+    --t-ai:      #6B4A9E;
+    --t-uk:      #8A4B2A;
+    --t-iran:    #9E3B3B;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  /* ---- masthead ---- */
+
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .masthead h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 8vw, 2.75rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .dateline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---- lede ---- */
+
+  .lede {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 2.5rem;
+    padding: 1.5rem 0 1.5rem 1.25rem;
+    border-left: 3px solid var(--t-iran);
+  }
+
+  .lede-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--t-iran);
+  }
+
+  .lede p {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+
+  .lede a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  .lede a:hover, .lede a:focus-visible { text-decoration-color: var(--t-iran); }
+
+  /* ---- jump nav ---- */
+
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    margin-top: 1.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .jump a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+  }
+
+  .jump a:hover,
+  .jump a:focus-visible { color: var(--ink); border-bottom-color: currentColor; }
+
+  /* ---- sections ---- */
+
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: 3.25rem;
+    margin-top: 3rem;
+  }
+
+  .topic { scroll-margin-top: 1.5rem; }
+
+  .topic-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--hue);
+  }
+
+  .topic-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--hue);
+  }
+
+  .topic-count {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .standfirst {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin-top: 1.1rem;
+    text-wrap: pretty;
+  }
+
+  .stories {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin-top: 1.75rem;
+  }
+
+  .stories li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  .stories li:first-child { border-top: none; padding-top: 0; }
+  .stories li:last-child { padding-bottom: 0; }
+
+  .headline {
+    font-family: var(--serif);
+    font-size: 1.1875rem;
+    line-height: 1.35;
+    color: var(--ink);
+    text-decoration: none;
+    text-wrap: balance;
+    border-bottom: 1px solid var(--rule);
+    align-self: flex-start;
+  }
+
+  .headline:hover,
+  .headline:focus-visible { color: var(--hue); border-bottom-color: var(--hue); }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .outlet { color: var(--hue); font-weight: 600; }
+
+  .summary {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+
+  /* ---- footer ---- */
+
+  .colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .colophon strong { color: var(--ink-soft); font-weight: 600; }
+
+  .colophon code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+    color: var(--ink-soft);
+  }
+
+  /* ---- direct links (blocked outlets) ---- */
+
+  .direct {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 4rem;
+    padding: 1.5rem;
+    border: 1px solid var(--rule);
+  }
+
+  .direct-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .direct p {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+
+  .direct-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.25rem;
+  }
+
+  .direct-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+  }
+
+  .direct-links a:hover,
+  .direct-links a:focus-visible { color: var(--t-finance); border-bottom-color: var(--t-finance); }
+
+  a:focus-visible,
+  .headline:focus-visible {
+    outline: 2px solid var(--t-finance);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="dateline">
+      <span>Evening edition</span>
+      <span>Monday 3 August 2026</span>
+      <span>19:45 BST</span>
+    </div>
+    <h1>Evening Brief</h1>
+    <div class="dateline">
+      <span>25 headlines &middot; 5 topics &middot; 9 outlets</span>
+    </div>
+  </header>
+
+  <div class="lede">
+    <span class="lede-label">Story of the day</span>
+    <p>Trump said talks with Tehran would start today. Tehran said no talks are happening. <a href="https://www.cbsnews.com/live-updates/iran-war-donald-trump-us-denies-negotiations-begin-strikes-called-off/">He then called Iran &ldquo;unbelievably duplicitous&rdquo;</a> &mdash; unwinding the de-escalation trade that had lifted equities and knocked oil back this morning.</p>
+  </div>
+
+  <nav class="jump" aria-label="Topics">
+    <a href="#finance">Finance</a>
+    <a href="#economy">Economy</a>
+    <a href="#ai">AI</a>
+    <a href="#uk">UK Politics</a>
+    <a href="#iran">Iran War</a>
+  </nav>
+
+  <main class="sections">
+
+    <!-- ============ FINANCE ============ -->
+    <section class="topic" id="finance" style="--hue: var(--t-finance)">
+      <div class="topic-head">
+        <span class="topic-label">Finance</span>
+        <span class="topic-count">5</span>
+      </div>
+      <p class="standfirst">Equities took the de-escalation trade and ran with it this morning; the bond market was less convinced, and Tehran's denial arrived after the rally. Everything here is a bet on an Iran headline that did not hold.</p>
+      <ul class="stories">
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/08/02/stock-market-today-live-updates.html">Stocks rally, fuelled by gains in Big Tech and a drop in oil prices</a>
+          <div class="meta"><span class="outlet">CNBC</span><span>Live blog</span></div>
+          <p class="summary">The Dow traded around 613 points higher (1.2%), the S&amp;P 500 up 1.5% and the Nasdaq up 2.2%. Meta rose almost 7% and Amazon gained more than 6% to touch a $3 trillion market capitalisation.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnn.com/business/live-news/stock-market-news-today-100219">What's moving markets today</a>
+          <div class="meta"><span class="outlet">CNN Business</span><span>Live</span></div>
+          <p class="summary">CNN's rolling markets thread — the place to check whether the afternoon reversal in the Iran story pulled equities back before the close.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/08/03/us-treasury-yields-investors-bonds-war.html">US Treasury yields fall as oil prices plunge on Iran de-escalation hopes</a>
+          <div class="meta"><span class="outlet">CNBC</span><span>3 Aug</span></div>
+          <p class="summary">Yields retreated as crude sold off on the news that talks would restart — precisely the trade that Tehran's denial later in the day puts in question.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/07/31/oil-prices-today-brent-wti-hormuz-trump-iran-.html">Oil prices rise after Iran says it attacked two tankers transiting the Strait of Hormuz</a>
+          <div class="meta"><span class="outlet">CNBC</span><span>31 Jul</span></div>
+          <p class="summary">Brent settled at $90.12 on Friday after the IRGC said it hit tankers moving through Hormuz under US naval escort, with four more turning back. That is the level today's slide started from.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://us.cnn.com/2026/07/27/business/fed-interest-rates-economy-oil-prices">The Fed confronts an unusually confusing economic moment</a>
+          <div class="meta"><span class="outlet">CNN Business</span><span>27 Jul</span></div>
+          <p class="summary">Why the September decision is genuinely open: an oil shock pushing inflation up, a labour market still tight, and growth cooling — the three pointing in different directions.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ ECONOMY ============ -->
+    <section class="topic" id="economy" style="--hue: var(--t-economy)">
+      <div class="topic-head">
+        <span class="topic-label">Economy</span>
+        <span class="topic-count">5</span>
+      </div>
+      <p class="standfirst">Growth is slowing while inflation refuses to come down, and manufacturers now describe the uncertainty as worse than the pandemic. Markets put a September Fed hike at 64.5% by midday today, down from about 82% in late July — entirely on the Iran headlines.</p>
+      <ul class="stories">
+        <li>
+          <a class="headline" href="https://www.npr.org/2026/07/30/nx-s1-5912203/federal-reserve-holds-interest-rates-steady-despite-high-inflation">Federal Reserve holds interest rates steady despite high inflation</a>
+          <div class="meta"><span class="outlet">NPR</span><span>30 Jul</span></div>
+          <p class="summary">The FOMC left its key rate at 3.5%&ndash;3.75% on a 9&ndash;3 vote, with three dissenters wanting a rise. Markets are trading as though higher rates are coming regardless.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/08/03/manufacturing-survey-shows-inflation-worries-adding-to-pressure-on-fed.html">Manufacturing survey shows inflation worries 'worse than pandemic era'</a>
+          <div class="meta"><span class="outlet">CNBC</span><span>3 Aug</span></div>
+          <p class="summary">The ISM July survey came in at 55.6, the fastest expansion in more than four years, led by export orders and a 6.3-point jump in production. Manufacturers describe geopolitical uncertainty as worse than Covid.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnn.com/2026/07/13/economy/inflation-prices">Don't be fooled: America's inflation problems aren't going away anytime soon</a>
+          <div class="meta"><span class="outlet">CNN Business</span><span>13 Jul</span></div>
+          <p class="summary">On sticky services inflation — haircuts, doctor visits, car repairs — which has now run above target for more than five years and is the part an oil-price reversal does not fix.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.france24.com/en/live-news/20260730-eurozone-economy-grows-despite-middle-east-war">Eurozone economy grows despite Middle East war</a>
+          <div class="meta"><span class="outlet">France 24</span><span>30 Jul</span></div>
+          <p class="summary">The bloc expanded 0.4% in Q2, double the 0.2% forecast, holding up better than expected against the energy shock. The ECB, on hold at 2.25%, faces its own September question.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.aljazeera.com/economy/2026/7/30/us-gdp-growth-dips-as-inflation-and-trade-deficits-pressure-economy">US GDP growth dips as inflation and trade deficits pressure economy</a>
+          <div class="meta"><span class="outlet">Al Jazeera</span><span>30 Jul</span></div>
+          <p class="summary">Q2 growth cooled to 1.5% from 2.1% in Q1, with the PCE price index up 3.7% year on year in June and widening deficits subtracting from the headline.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ AI ============ -->
+    <section class="topic" id="ai" style="--hue: var(--t-ai)">
+      <div class="topic-head">
+        <span class="topic-label">AI</span>
+        <span class="topic-count">5</span>
+      </div>
+      <p class="standfirst">Brussels switched on real enforcement powers today, in the same week Chinese labs closed the gap on open models — regulation arriving just as the competitive picture stops being American.</p>
+      <ul class="stories">
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/08/03/eu-ai-act-enforcement-powers.html">OpenAI and Anthropic face new scrutiny as EU AI Act enforcement powers kick in</a>
+          <div class="meta"><span class="outlet">CNBC</span><span>3 Aug</span></div>
+          <p class="summary">The Commission can now inspect models, demand evaluations before EU release, restrict market access and fine providers up to &euro;15m or 3% of annual turnover. Brussels is already in contact with OpenAI and Anthropic after the recent model-driven cyberattacks.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/08/03/alibaba-ai-model-qwen-rival-anthropic.html">Alibaba shares rally after unveiling its 'most powerful' AI model</a>
+          <div class="meta"><span class="outlet">CNBC</span><span>3 Aug</span></div>
+          <p class="summary">Alibaba published benchmarks showing its new model scoring comparably to, and in places above, leading US frontier models. Separately today, Hugging Face's chief executive said Chinese labs could draw level with US model makers by early 2027.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.nbcnews.com/tech/tech-news/experts-say-money-guiding-ai-industry-debate-open-closed-tech-rcna589495">The AI industry is picking sides on open or closed tech. Experts say follow the money</a>
+          <div class="meta"><span class="outlet">NBC News</span></div>
+          <p class="summary">Framing for the two stories above: Nvidia, Microsoft and Meta have lined up behind open-weight models, while OpenAI and Anthropic — the closed-weight leaders — stayed out of that alliance.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/07/27/nvidia-and-openai-in-talks-for-up-to-250-billion-dollar-ai-backstop.html">Nvidia and OpenAI in talks for up to $250 billion backstop to fund AI infrastructure</a>
+          <div class="meta"><span class="outlet">CNBC</span><span>27 Jul</span></div>
+          <p class="summary">The arrangement would let OpenAI raise debt for a 10-gigawatt data centre campus in Pike County, Ohio, on the strength of Nvidia's credit — a chip supplier underwriting its own customer's borrowing.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.euronews.com/business/2026/02/16/big-techs-ai-spending-is-ballooning-but-will-it-crush-europe">Analysis: will Big Tech's colossal AI spending crush Europe's data sovereignty?</a>
+          <div class="meta"><span class="outlet">Euronews</span><span>Analysis</span></div>
+          <p class="summary">Background to today's EU move. Morgan Stanley expects hyperscalers to borrow around $400bn in 2026, more than double 2025 — the scale of capital European regulators are now trying to set terms for.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ UK POLITICS ============ -->
+    <section class="topic" id="uk" style="--hue: var(--t-uk)">
+      <div class="topic-head">
+        <span class="topic-label">UK Politics</span>
+        <span class="topic-count">5</span>
+      </div>
+      <p class="standfirst">Two weeks in, Burnham has bought goodwill with three cost-of-living giveaways. The bill for them, and the gilt market's opinion of it, is John Healey's problem — and Farage is already demanding a general election.</p>
+      <ul class="stories">
+        <li>
+          <a class="headline" href="https://www.nbcnews.com/world/united-kingdom/uks-burnham-targets-lower-energy-bills-first-move-pm-rcna588496">Burnham targets lower energy bills in first move as PM</a>
+          <div class="meta"><span class="outlet">NBC News</span></div>
+          <p class="summary">From 1 October, VAT comes off domestic electricity bills — about &pound;45 a year for the average household — funded by scrapping Starmer's digital ID scheme, which would have cost &pound;1.8bn.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnn.com/2026/07/20/world/live-news/andy-burnham-uk-prime-minister-intl">Burnham pledges to end instability; Farage calls for a general election</a>
+          <div class="meta"><span class="outlet">CNN</span><span>20 Jul &middot; Live</span></div>
+          <p class="summary">Burnham promised his leadership would be a "circuit breaker" bringing "the biggest changes in the last 40 years". Farage's reply: he "cannot be allowed" to do that without a mandate.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.france24.com/en/live-news/20260726-burnham-offers-sweeteners-hopeful-vibes-in-first-week-as-uk-pm">Burnham offers sweeteners and hopeful vibes in first week as UK PM</a>
+          <div class="meta"><span class="outlet">France 24</span><span>26 Jul</span></div>
+          <p class="summary">Alongside the VAT cut: a cap on most bus fares in England and a 20% cut in business rates for pubs, clubs and live music venues. Three modest, visible cost-of-living measures.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnbc.com/2026/07/21/andy-burnham-john-healey-chancellor-gilts-jamie-dimon.html">All eyes are on John Healey, the UK's new finance minister. Here's what's at stake</a>
+          <div class="meta"><span class="outlet">CNBC</span><span>21 Jul</span></div>
+          <p class="summary">Healey inherits rising borrowing and a gilt market that has already shown it will react. The giveaways above are small; the question is what the autumn fiscal event looks like.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.npr.org/2026/07/19/g-s1-134001/andy-burnham-new-british-prime-minister">What to know about Andy Burnham, the new UK prime minister</a>
+          <div class="meta"><span class="outlet">NPR</span><span>19 Jul</span></div>
+          <p class="summary">The primer, if you have not followed the leadership contest: how the Greater Manchester mayor took the party, and why Labour MPs concluded he was the one who could take on Reform.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ IRAN WAR ============ -->
+    <section class="topic" id="iran" style="--hue: var(--t-iran)">
+      <div class="topic-head">
+        <span class="topic-label">Iran War</span>
+        <span class="topic-count">5</span>
+      </div>
+      <p class="standfirst">The day's whole story is a contradiction: Washington says negotiations have started, Tehran says they have not. What appears real is an Iran&ndash;Oman deal on Hormuz transit, said to be in its final stages.</p>
+      <ul class="stories">
+        <li>
+          <a class="headline" href="https://www.cbsnews.com/live-updates/iran-war-donald-trump-us-denies-negotiations-begin-strikes-called-off/">Trump calls Iran 'unbelievably duplicitous' after Tehran denies his claim talks are resuming</a>
+          <div class="meta"><span class="outlet">CBS News</span><span>3 Aug &middot; Live</span></div>
+          <p class="summary">Trump said Iran asked for a meeting — "some would say beg" — then publicly denied any discussions were happening. He also said a plan was ready for "the biggest attack since World War II" and that he halted it for diplomacy.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.npr.org/2026/08/03/g-s1-136916/iran-war-trump-us-peace-negotiations">Iran denies peace negotiations, contradicting Trump's announcement</a>
+          <div class="meta"><span class="outlet">NPR</span><span>3 Aug</span></div>
+          <p class="summary">The cleanest write-up of the contradiction. Tehran says it is talking only to Oman, about temporarily reopening the Strait of Hormuz, and to no one in Washington.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.cnn.com/2026/08/02/world/live-news/iran-war-trump">Live updates: Iran discusses a Strait of Hormuz deal with Oman but denies talks planned with the US</a>
+          <div class="meta"><span class="outlet">CNN</span><span>Live</span></div>
+          <p class="summary">The rolling thread, useful for tracking whether either account holds overnight. Trump has said Hormuz could open fully by Tuesday in what he calls "phase one".</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/3/trump-says-new-iran-negotiations-starting-what-we-know">Trump says new Iran negotiations are starting: what we know</a>
+          <div class="meta"><span class="outlet">Al Jazeera</span><span>3 Aug</span></div>
+          <p class="summary">Foreign Minister Abbas Araghchi says the Tehran&ndash;Oman negotiations on future management of the Strait are in their "final stages" — a temporary safe route, not a US agreement.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://english.alarabiya.net/News/middle-east/2026/08/03/iran-says-no-current-talks-with-us">Iran says no current talks with the US</a>
+          <div class="meta"><span class="outlet">Al Arabiya</span><span>3 Aug</span></div>
+          <p class="summary">Foreign ministry spokesperson Esmaeil Baghaei's statement, reported from the region — worth reading alongside the US coverage for how the denial is being framed locally.</p>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <div class="direct">
+    <span class="direct-label">Read direct &mdash; not summarised above</span>
+    <p>BBC and Reuters block the automated reader this brief is built with, so their stories cannot be quoted or summarised here. Both are free to read in your browser, so these go straight to the relevant sections:</p>
+    <div class="direct-links">
+      <a href="https://www.bbc.com/news/business">BBC Business</a>
+      <a href="https://www.bbc.com/news/politics">BBC UK Politics</a>
+      <a href="https://www.bbc.com/news/world/middle_east">BBC Middle East</a>
+      <a href="https://www.bbc.com/news/technology">BBC Technology</a>
+      <a href="https://www.reuters.com/business/finance/">Reuters Finance</a>
+      <a href="https://www.reuters.com/business/energy/">Reuters Energy</a>
+    </div>
+  </div>
+
+  <footer class="colophon">
+    <p><strong>Sources.</strong> Nine outlets in this edition — CNBC, CNN, NPR, CBS News, NBC News, Al Jazeera, France 24, Euronews and Al Arabiya — all free to read without a subscription. CNBC supplies 8 of the 25 headlines, mostly on markets; no other outlet supplies more than five.</p>
+    <p><strong>What could not be included.</strong> Reuters, BBC, DW and Le Monde block this agent's reader at every domain tested, including their RSS feeds; the Guardian, AP, Sky News, the Independent and Politico do the same. Routing around a publisher's block through a third-party proxy is not something this agent will do, so those outlets appear as direct links only. El País English was searched and surfaced nothing on these topics today.</p>
+    <p><strong>Permanent address:</strong> <a href="https://silmerem.github.io/Code/news/">silmerem.github.io/Code/news</a> — this page is rebuilt in place every morning at 6am UK time, so the link never changes. Bookmark it on any device.</p>
+    <p><strong>This is an off-schedule run</strong>, produced at 19:45 on 3 August instead of the usual 06:02. Instructions for the agent live in <code>news-agent/PROMPT.md</code>.</p>
+  </footer>
+
+</div>
+</body>
+</html>
