@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronunciación de Números en Francés</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .modo {
+            display: block;
+            text-decoration: none;
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .modo:hover {
+            background: #eef0ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.25);
+        }
+
+        .modo h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .modo p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .estado {
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 25px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .estado.ok {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            color: #1b5e20;
+        }
+
+        .estado.aviso {
+            background: #fff3cd;
+            border-left: 4px solid #f0ad4e;
+            color: #7a5b00;
+        }
+
+        .estado code {
+            background: rgba(0, 0, 0, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 13px;
+        }
+
+        button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #667eea;
+            color: white;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        button:hover:not(:disabled) {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 25px; }
+            .header h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🇫🇷 Números en Francés</h1>
+            <p>Tres formas de practicar la pronunciación con tu micrófono</p>
+        </div>
+
+        <a class="modo" href="tutor-interactivo.html">
+            <h2>👩‍🏫 Tutor Interactivo</h2>
+            <p>Lección guiada del 1 al 10. El tutor te explica cada número, tú lo repites y recibes una puntuación.</p>
+        </a>
+
+        <a class="modo" href="tutor-2.0.html">
+            <h2>⚡ Tutor 2.0</h2>
+            <p>La misma lección del 1 al 10, más directa y sin explicaciones largas.</p>
+        </a>
+
+        <a class="modo" href="numeros-frances.html">
+            <h2>🔢 Práctica libre (1–100)</h2>
+            <p>Los cien primeros números en orden aleatorio. Escucha, grábate y compara cuando quieras.</p>
+        </a>
+
+        <div class="estado" id="estado"></div>
+        <button id="btnPermiso">🎤 Probar el micrófono</button>
+    </div>
+
+    <script src="js/speech.js"></script>
+    <script>
+        const estado = document.getElementById('estado');
+        const btnPermiso = document.getElementById('btnPermiso');
+
+        function mostrar(clase, html) {
+            estado.className = 'estado ' + clase;
+            estado.innerHTML = html;
+        }
+
+        const problema = Voz.problemaDeEntorno();
+        if (problema) {
+            mostrar('aviso', '<strong>⚠️ El micrófono no va a funcionar aquí</strong><br>' + problema);
+            btnPermiso.disabled = true;
+        } else {
+            mostrar('ok', '<strong>✅ Este navegador puede usar el micrófono.</strong><br>Comprueba el permiso antes de empezar la lección.');
+        }
+
+        btnPermiso.addEventListener('click', async () => {
+            btnPermiso.disabled = true;
+            const permiso = await Voz.pedirPermiso();
+
+            if (permiso.ok) {
+                permiso.stream.getTracks().forEach(pista => pista.stop());
+                mostrar('ok', '<strong>✅ Micrófono listo.</strong><br>Ya puedes elegir cualquiera de los tres modos.');
+            } else {
+                mostrar('aviso', '<strong>⚠️ No se pudo abrir el micrófono</strong><br>' + permiso.mensaje);
+                btnPermiso.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
