@@ -292,6 +292,15 @@
     .fresh { transition: border-color 0.2s ease; }
   }
 
+  /* Marks a date the source did not publish, inferred from the story's own
+     content. Only the UK section can carry these — see the colophon. */
+  .est {
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    opacity: 0.75;
+  }
+
   .summary {
     font-size: 0.9375rem;
     line-height: 1.6;
@@ -385,11 +394,11 @@
     <div class="dateline">
       <span>Evening edition</span>
       <span>Monday 3 August 2026</span>
-      <span>20:30 BST</span>
+      <span>20:55 BST</span>
     </div>
     <h1>Evening Brief</h1>
     <div class="dateline">
-      <span>15 headlines &middot; 8 outlets &middot; last 24 hours only</span>
+      <span>18 headlines &middot; 10 outlets &middot; last 24 hours, bar UK politics</span>
     </div>
   </header>
 
@@ -496,15 +505,27 @@
     <section class="topic" id="uk" style="--hue: var(--t-uk)">
       <div class="topic-head">
         <span class="topic-label">UK Politics</span>
-        <span class="topic-count">0</span>
+        <span class="topic-count">3</span>
       </div>
-      <p class="standfirst">Nothing in this section today, and the reason is structural rather than a quiet news day.</p>
+      <p class="standfirst">Labour has erased Reform&rsquo;s poll lead in Burnham&rsquo;s first fortnight, while his opening giveaway runs into questions about who pays for it. <strong>These are not from the last 24 hours</strong> &mdash; see the note below the section.</p>
       <ul class="stories">
         <li>
-          <p class="summary">Every UK outlet that reliably datestamps its stories &mdash; the BBC, the Guardian, Sky News, the Independent, the Evening Standard, Politico &mdash; blocks the automated reader this brief is built with. <a href="https://uk.news.yahoo.com/politics/">Yahoo News UK</a> was added to the roster today and does carry Westminster copy from PA Media and the national papers, but its URLs hold no date and everything it surfaced traced back to Burnham&rsquo;s first week in office a fortnight ago. GB News has the same problem; the London bureaux of CNN, NBC, France 24 and Euronews filed nothing on UK politics in the window.</p>
-          <p class="summary">Rather than run last month&rsquo;s stories under today&rsquo;s date, the section is left empty. <a href="https://www.bbc.com/news/politics">BBC UK Politics</a> is free to read in your browser and is the fastest fix while this stands.</p>
+          <a class="headline" href="https://uk.news.yahoo.com/labour-overtake-reform-major-westminster-120114501.html">Labour overtake Reform in major Westminster poll for first time in 16 months</a>
+          <div class="meta"><span class="outlet">Yahoo News UK</span><time datetime="2026-07-28">28 Jul</time><span class="est">est.</span></div>
+          <p class="summary">More in Common put Labour on 28%, up four in a week and four clear of Reform on 24%, with the Conservatives unchanged on 22%. Fieldwork ran 24&ndash;27 July across 2,061 voters &mdash; the first major poll to show Labour ahead since April 2025.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://uk.news.yahoo.com/reforms-poll-lead-collapses-amid-124622392.html">Reform's poll lead collapses amid row over Nigel Farage's finances</a>
+          <div class="meta"><span class="outlet">Yahoo News UK</span><time datetime="2026-07-28">28 Jul</time><span class="est">est.</span></div>
+          <p class="summary">The other half of the same swing: Reform&rsquo;s support stalled as Farage struggled to answer questions about a &pound;5m gift from Thailand-based crypto billionaire Christopher Harborne. He has responded by demanding Burnham call a general election, arguing the new PM &ldquo;has no mandate whatsoever&rdquo;.</p>
+        </li>
+        <li>
+          <a class="headline" href="https://www.gbnews.com/politics/andy-burnham-nigel-farage-ed-davey-kemi-badenoch-care-talks">Burnham set for cross-party talks on the care crisis &mdash; but snubs Farage</a>
+          <div class="meta"><span class="outlet">GB News</span><time datetime="2026-07-28">28 Jul</time><span class="est">est.</span></div>
+          <p class="summary">Invitations went to Kemi Badenoch and Ed Davey but not to Reform, despite its polling. A test of whether Burnham&rsquo;s promised end to instability extends to the party that spent a year leading the polls.</p>
         </li>
       </ul>
+      <p class="standfirst">Every UK outlet that datestamps its stories &mdash; the BBC, the Guardian, Sky News, the Independent, the Evening Standard, Politico &mdash; blocks the reader this brief is built with. What is left is Yahoo News UK and GB News, neither of which puts a date in its URLs, and nothing either surfaced today was from the past 24 hours. So this one section runs on a wider window, with each date inferred from the story&rsquo;s own contents and marked <span class="est">est.</span> The rest of the brief is unchanged: today or yesterday, nothing else.</p>
     </section>
 
     <!-- ============ IRAN WAR ============ -->
@@ -563,8 +584,9 @@
   </div>
 
   <footer class="colophon">
-    <p><strong>Last 24 hours only.</strong> Every headline here was published today or yesterday. Stories marked <span class="fresh">Today</span> are same-day and sort to the top of their section. Publication <em>times</em> are deliberately absent: no reachable source provides them &mdash; search returns no date metadata, and article pages refuse the reader outright &mdash; so an hour printed on these lines would be invented. Dates are cross-checked against the article URL wherever the outlet puts one there, which covers 13 of these 15 headlines; CBS News and NBC News do not, and their dates come from the events the stories describe.</p>
-    <p><strong>Sources.</strong> Eight outlets &mdash; CNBC, CNN, NPR, CBS News, NBC News, Al Jazeera, France 24 and Euronews &mdash; all free to read without a subscription. No outlet supplies more than four of the fifteen headlines, and none more than two within a single section.</p>
+    <p><strong>Last 24 hours, with one marked exception.</strong> Every headline outside UK politics was published today or yesterday. Stories marked <span class="fresh">Today</span> are same-day and sort to the top of their section. UK politics runs on a wider window because its only reachable sources publish no dates at all; those three lines carry <span class="est">est.</span> against a date inferred from the story&rsquo;s own contents, and they are the only estimated dates on this page.</p>
+    <p><strong>No publication times.</strong> No reachable source provides them &mdash; search returns no date metadata, and article pages refuse the reader outright &mdash; so an hour printed on these lines would be invented. Dates are cross-checked against the article URL wherever the outlet puts one there, which covers 13 of these 18 headlines; CBS News, NBC News, Yahoo News UK and GB News do not.</p>
+    <p><strong>Sources.</strong> Ten outlets &mdash; CNBC, CNN, NPR, CBS News, NBC News, Yahoo News UK, GB News, Al Jazeera, France 24 and Euronews &mdash; all free to read without a subscription. No outlet supplies more than four of the eighteen headlines, and none more than two within a single section.</p>
     <p><strong>What could not be included.</strong> Reuters, BBC, DW, Le Monde, the Guardian, AP, Sky News, the Independent, the Evening Standard and Politico all block this agent&rsquo;s reader, RSS feeds included. Fox News, GB News and Yahoo News UK were tested today and added to the roster, but none datestamps its URLs and none filed anything that could be placed inside today&rsquo;s window. Neither an RSS mirror nor an aggregator will be used to fetch a story from a publisher that has blocked this agent &mdash; a nicer front door is still the same evasion &mdash; so those outlets appear as direct links only.</p>
     <p><strong>Permanent address:</strong> <a href="https://silmerem.github.io/Code/news/">silmerem.github.io/Code/news</a> &mdash; rebuilt in place every morning at 6am UK time, so the link never changes. Bookmark it on any device.</p>
     <p><strong>This is an off-schedule run</strong>, produced on the evening of 3 August instead of the usual 06:02. Instructions for the agent live in <code>news-agent/PROMPT.md</code>.</p>
