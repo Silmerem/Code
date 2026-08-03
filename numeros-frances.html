@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Números en Francés</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔢</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .word-card {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .word-card .current {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .word-card .word-main {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            word-break: break-word;
+        }
+
+        .word-card .word-meaning {
+            font-size: 16px;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .buttons-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-listen {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-listen:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-record {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-record:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-record.recording {
+            background: #a93226;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(169, 50, 38, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(169, 50, 38, 0); }
+        }
+
+        .btn-compare {
+            grid-column: 1 / -1;
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-compare:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-compare:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .recording-indicator {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 10px;
+            color: #856404;
+            font-weight: 600;
+        }
+
+        .recording-indicator.active {
+            display: block;
+        }
+
+        .recording-indicator::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #e74c3c;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: recording-pulse 1s infinite;
+        }
+
+        @keyframes recording-pulse {
+            0%, 100% { background: #e74c3c; }
+            50% { background: #f1948a; }
+        }
+
+        .transcript {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .transcript.active {
+            display: block;
+        }
+
+        .transcript-label {
+            font-size: 12px;
+            color: #616161;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .transcript-text {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .result {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result.success {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+        }
+
+        .result.partial {
+            background: #fff3e0;
+            border-left: 4px solid #a35200;
+        }
+
+        .result.low {
+            background: #ffebee;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .percentage {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .result.success .percentage {
+            color: #27ae60;
+        }
+
+        .result.partial .percentage {
+            color: #a35200;
+        }
+
+        .result.low .percentage {
+            color: #e74c3c;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .result-text {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-nav {
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            flex: 1;
+        }
+
+        .btn-nav:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-nav:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2c3e50 0%, #3498db 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .btn-shuffle {
+            background: #7b3ff2;
+            color: white;
+            padding: 12px 25px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-shuffle:hover {
+            background: #6a2ee1;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(123, 63, 242, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .word-card .word-main {
+                font-size: 36px;
+            }
+
+            .buttons-group {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-compare {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔢 Números en Francés</h1>
+            <p>Mejora tu pronunciación de números del 1 al 100 en orden aleatorio</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <button class="btn-shuffle" id="btnShuffle">
+            <span>🔀</span> Mezclar nuevamente
+        </button>
+
+        <div class="word-card">
+            <div class="current" id="currentWord">Número 1 de 100</div>
+            <div class="word-main" id="wordDisplay">Un</div>
+            <div class="word-meaning" id="meaningDisplay">1</div>
+        </div>
+
+        <div class="buttons-group">
+            <button class="btn-listen" id="btnListen">
+                <span>🔊</span> Escuchar
+            </button>
+            <button class="btn-record" id="btnRecord">
+                <span>🎤</span> Grabar
+            </button>
+        </div>
+
+        <div class="recording-indicator" id="recordingIndicator">
+            Grabando...
+        </div>
+
+        <div class="transcript active" id="transcript">
+            <div class="transcript-label">Tu pronunciación:</div>
+            <div class="transcript-text" id="transcriptText">Presiona 'Grabar' para comenzar</div>
+        </div>
+
+        <button class="btn-compare" id="btnCompare">
+            <span>⚖️</span> Comparar Pronunciación
+        </button>
+
+        <div class="result" id="result">
+            <div class="percentage" id="percentage">0%</div>
+            <div class="result-label">Nivel de coincidencia:</div>
+            <div class="result-text" id="resultText">-</div>
+        </div>
+
+        <div class="navigation">
+            <button class="btn-nav" id="btnPrev">← Anterior</button>
+            <button class="btn-nav" id="btnNext">Siguiente →</button>
+        </div>
+    </div>
+
+    <script src="js/speech.js"></script>
+    <script>
+        const numerosFrances = {
+            1: "un", 2: "deux", 3: "trois", 4: "quatre", 5: "cinq",
+            6: "six", 7: "sept", 8: "huit", 9: "neuf", 10: "dix",
+            11: "onze", 12: "douze", 13: "treize", 14: "quatorze", 15: "quinze",
+            16: "seize", 17: "dix-sept", 18: "dix-huit", 19: "dix-neuf", 20: "vingt",
+            21: "vingt et un", 22: "vingt-deux", 23: "vingt-trois", 24: "vingt-quatre",
+            25: "vingt-cinq", 26: "vingt-six", 27: "vingt-sept", 28: "vingt-huit",
+            29: "vingt-neuf", 30: "trente", 31: "trente et un", 32: "trente-deux",
+            33: "trente-trois", 34: "trente-quatre", 35: "trente-cinq", 36: "trente-six",
+            37: "trente-sept", 38: "trente-huit", 39: "trente-neuf", 40: "quarante",
+            41: "quarante et un", 42: "quarante-deux", 43: "quarante-trois",
+            44: "quarante-quatre", 45: "quarante-cinq", 46: "quarante-six",
+            47: "quarante-sept", 48: "quarante-huit", 49: "quarante-neuf", 50: "cinquante",
+            51: "cinquante et un", 52: "cinquante-deux", 53: "cinquante-trois",
+            54: "cinquante-quatre", 55: "cinquante-cinq", 56: "cinquante-six",
+            57: "cinquante-sept", 58: "cinquante-huit", 59: "cinquante-neuf", 60: "soixante",
+            61: "soixante et un", 62: "soixante-deux", 63: "soixante-trois",
+            64: "soixante-quatre", 65: "soixante-cinq", 66: "soixante-six",
+            67: "soixante-sept", 68: "soixante-huit", 69: "soixante-neuf", 70: "soixante-dix",
+            71: "soixante et onze", 72: "soixante-douze", 73: "soixante-treize",
+            74: "soixante-quatorze", 75: "soixante-quinze", 76: "soixante-seize",
+            77: "soixante-dix-sept", 78: "soixante-dix-huit", 79: "soixante-dix-neuf",
+            80: "quatre-vingts", 81: "quatre-vingt-un", 82: "quatre-vingt-deux",
+            83: "quatre-vingt-trois", 84: "quatre-vingt-quatre", 85: "quatre-vingt-cinq",
+            86: "quatre-vingt-six", 87: "quatre-vingt-sept", 88: "quatre-vingt-huit",
+            89: "quatre-vingt-neuf", 90: "quatre-vingt-dix", 91: "quatre-vingt-onze",
+            92: "quatre-vingt-douze", 93: "quatre-vingt-treize", 94: "quatre-vingt-quatorze",
+            95: "quatre-vingt-quinze", 96: "quatre-vingt-seize", 97: "quatre-vingt-dix-sept",
+            98: "quatre-vingt-dix-huit", 99: "quatre-vingt-dix-neuf", 100: "cent"
+        };
+
+        let numbers = Object.keys(numerosFrances).map(Number).sort(() => Math.random() - 0.5);
+        let currentIndex = 0;
+        let recordedTranscript = "";
+        let recordedAlternatives = [];
+
+        const btnRecord = document.getElementById('btnRecord');
+        const recordingIndicator = document.getElementById('recordingIndicator');
+        const transcriptText = document.getElementById('transcriptText');
+
+        // Avisa si el micrófono no va a funcionar (file://, sin HTTPS,
+        // navegador sin soporte) antes de que el alumno lo intente.
+        Voz.avisarProblemas(document.querySelector('.container'));
+
+        function startRecording() {
+            recordedTranscript = '';
+            recordedAlternatives = [];
+
+            Voz.grabar({
+                idioma: 'fr-FR',
+                onInicio: () => {
+                    btnRecord.classList.add('recording');
+                    recordingIndicator.classList.add('active');
+                    transcriptText.textContent = 'Escuchando...';
+                    document.getElementById('transcript').classList.add('active');
+                },
+                onParcial: (texto) => {
+                    transcriptText.textContent = texto;
+                },
+                onFin: (texto, info) => {
+                    btnRecord.classList.remove('recording');
+                    recordingIndicator.classList.remove('active');
+                    recordedTranscript = texto;
+                    recordedAlternatives = (info && info.alternativas) || [];
+
+                    if (texto) {
+                        transcriptText.textContent = texto;
+                    } else if (info && info.soloAudio) {
+                        transcriptText.textContent = 'Grabado (este navegador no transcribe)';
+                    } else {
+                        transcriptText.textContent = 'No se detectó audio';
+                    }
+                    document.getElementById('transcript').classList.add('active');
+                },
+                onError: (mensaje) => {
+                    btnRecord.classList.remove('recording');
+                    recordingIndicator.classList.remove('active');
+                    showError(mensaje);
+                }
+            });
+        }
+
+        function speakNumber() {
+            const numValue = numbers[currentIndex];
+            Voz.hablar(numerosFrances[numValue], 'fr-FR', { velocidad: 0.8 });
+        }
+
+        function calculateSimilarity(str1, str2) {
+            const longer = str1.length > str2.length ? str1 : str2;
+            const shorter = str1.length > str2.length ? str2 : str1;
+            if (longer.length === 0) return 100;
+            const editDistance = getEditDistance(longer, shorter);
+            return ((longer.length - editDistance) / longer.length) * 100;
+        }
+
+        function getEditDistance(s1, s2) {
+            const costs = [];
+            for (let i = 0; i <= s1.length; i++) {
+                let lastValue = i;
+                for (let j = 0; j <= s2.length; j++) {
+                    if (i === 0) {
+                        costs[j] = j;
+                    } else if (j > 0) {
+                        let newValue = costs[j - 1];
+                        if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                        }
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+                if (i > 0) costs[s2.length] = lastValue;
+            }
+            return costs[s2.length];
+        }
+
+        function normalizeTranscript(text) {
+            let normalized = Voz.normalizar(text);
+
+            // Convertir números a palabras (ej: "47" → "quarante sept")
+            for (let i = 100; i >= 1; i--) {
+                const numero = i.toString();
+                const palabra = numerosFrances[i].replace(/-/g, ' ');
+                normalized = normalized.replace(new RegExp('\\b' + numero + '\\b', 'g'), palabra);
+            }
+
+            return normalized;
+        }
+
+        function comparePronunciation() {
+            if (!recordedTranscript) {
+                showError('Por favor, graba tu voz primero');
+                return;
+            }
+
+            const numValue = numbers[currentIndex];
+            const original = Voz.normalizar(numerosFrances[numValue]);
+
+            // El reconocedor devuelve varias hipótesis: nos quedamos con la
+            // más cercana en vez de castigar por su primera opción.
+            const candidatos = [recordedTranscript].concat(recordedAlternatives);
+            const similarity = Math.round(Math.max(
+                ...candidatos.map(c => calculateSimilarity(original, normalizeTranscript(c)))
+            ));
+
+            const resultDiv = document.getElementById('result');
+            const percentageDiv = document.getElementById('percentage');
+            const resultText = document.getElementById('resultText');
+
+            resultDiv.className = 'result active';
+
+            if (similarity >= 75) {
+                resultDiv.classList.add('success');
+                resultDiv.classList.remove('partial', 'low');
+                resultText.textContent = '¡Excelente pronunciación! 🎉';
+            } else if (similarity >= 50) {
+                resultDiv.classList.add('partial');
+                resultDiv.classList.remove('success', 'low');
+                resultText.textContent = 'Bastante bien, pero hay diferencias. Intenta de nuevo.';
+            } else {
+                resultDiv.classList.add('low');
+                resultDiv.classList.remove('success', 'partial');
+                resultText.textContent = 'Necesita mejora. Escucha el número y vuelve a intentar.';
+            }
+
+            percentageDiv.textContent = similarity + '%';
+        }
+
+        function updateDisplay() {
+            const numValue = numbers[currentIndex];
+            document.getElementById('currentWord').textContent = `Número ${currentIndex + 1} de ${numbers.length}`;
+            document.getElementById('wordDisplay').textContent = numerosFrances[numValue];
+            document.getElementById('meaningDisplay').textContent = numValue;
+
+            const progress = ((currentIndex + 1) / numbers.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+
+            document.getElementById('btnPrev').disabled = currentIndex === 0;
+            document.getElementById('btnNext').disabled = currentIndex === numbers.length - 1;
+
+            recordedTranscript = '';
+            recordedAlternatives = [];
+            transcriptText.textContent = 'Presiona "Grabar" para comenzar';
+            document.getElementById('result').classList.remove('active', 'success', 'partial', 'low');
+        }
+
+        function showError(message, persist = false) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('active');
+            if (!persist) {
+                setTimeout(() => errorDiv.classList.remove('active'), 5000);
+            }
+        }
+
+        document.getElementById('btnListen').addEventListener('click', speakNumber);
+
+        btnRecord.addEventListener('click', () => {
+            if (Voz.estaGrabando()) Voz.detener();
+            else startRecording();
+        });
+
+        document.getElementById('btnCompare').addEventListener('click', comparePronunciation);
+
+        document.getElementById('btnNext').addEventListener('click', () => {
+            if (currentIndex < numbers.length - 1) {
+                currentIndex++;
+                updateDisplay();
+            }
+        });
+
+        document.getElementById('btnPrev').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateDisplay();
+            }
+        });
+
+        document.getElementById('btnShuffle').addEventListener('click', () => {
+            numbers = Object.keys(numerosFrances).map(Number).sort(() => Math.random() - 0.5);
+            currentIndex = 0;
+            updateDisplay();
+        });
+
+        updateDisplay();
+    </script>
+</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Interactivo de Números en Francés</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👩‍🏫</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .tutor-avatar {
+            font-size: 80px;
+            margin: 20px 0;
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .lesson-container {
+            display: none;
+        }
+
+        .lesson-container.active {
+            display: block;
+        }
+
+        .lesson-step {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: white;
+            text-align: center;
+        }
+
+        .step-title {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .number-display {
+            font-size: 56px;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .word-display {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 15px 0;
+            opacity: 0.95;
+        }
+
+        .tutor-message {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid #ffd54f;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message-box {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .message-box.success {
+            background: #e8f5e9;
+            border-left-color: #27ae60;
+        }
+
+        .message-box.partial {
+            background: #fff3e0;
+            border-left-color: #fb8c00;
+        }
+
+        .message-box.error {
+            background: #ffebee;
+            border-left-color: #c62828;
+        }
+
+        .message-text {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .score-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .buttons-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-listen {
+            background: #667eea;
+            color: white;
+            grid-column: 1 / -1;
+        }
+
+        .btn-listen:hover:not(:disabled) {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-listen.speaking {
+            background: #764ba2;
+            animation: pulse-audio 1s infinite;
+        }
+
+        @keyframes pulse-audio {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+        }
+
+        .btn-record {
+            background: #c62828;
+            color: white;
+        }
+
+        .btn-record:hover:not(:disabled) {
+            background: #ad1f1f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(198, 40, 40, 0.4);
+        }
+
+        .btn-record.recording {
+            background: #7d1414;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(198, 40, 40, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(198, 40, 40, 0); }
+        }
+
+        .btn-next {
+            background: #27ae60;
+            color: white;
+            grid-column: 1 / -1;
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-next:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .recording-indicator {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+            padding: 12px;
+            background: #fff3cd;
+            border-radius: 8px;
+            color: #856404;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .recording-indicator.active {
+            display: block;
+        }
+
+        .recording-indicator::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #c62828;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: recordDot 1s infinite;
+        }
+
+        @keyframes recordDot {
+            0%, 100% { background: #c62828; opacity: 1; }
+            50% { background: #f44336; opacity: 0.6; }
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-screen.hidden {
+            display: none;
+        }
+
+        .start-button {
+            background: #667eea;
+            color: white;
+            padding: 16px 40px;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .start-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .info-text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .status {
+            text-align: center;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .status.listening {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status.processing {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .number-display {
+                font-size: 42px;
+            }
+
+            .word-display {
+                font-size: 22px;
+            }
+
+            .buttons-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👨‍🏫 Tutor Interactivo</h1>
+            <p>Aprende pronunciación de números en francés con un tutor personal</p>
+        </div>
+
+        <div class="tutor-avatar">👩‍🏫</div>
+
+        <!-- PANTALLA DE INICIO -->
+        <div class="start-screen" id="startScreen">
+            <div style="text-align: center;">
+                <h2 style="color: #667eea; margin-bottom: 20px;">¡Bienvenido!</h2>
+                <div class="info-text">
+                    <strong>Cómo funciona:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>El tutor te dará instrucciones en español con acento francés</li>
+                        <li>Escucharás cómo se pronuncia cada número en francés</li>
+                        <li>Repetirás el número usando tu micrófono</li>
+                        <li>El tutor te dirá qué tan bien lo hiciste</li>
+                        <li>Continuarás automáticamente al siguiente número</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="start-button" id="startBtn">Comenzar la Lección</button>
+        </div>
+
+        <!-- PANTALLA DE LECCIÓN -->
+        <div class="lesson-container" id="lessonContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="lesson-step">
+                <div class="step-title">Número <span id="stepNumber">1</span> de 10</div>
+                <div class="number-display" id="numberDisplay">1</div>
+                <div class="word-display" id="wordDisplay">un</div>
+            </div>
+
+            <div class="tutor-message" id="tutorMessage">
+                El tutor está hablando...
+            </div>
+
+            <div class="status" id="status">Escuchando al tutor...</div>
+
+            <button class="btn-listen" id="btnListen">
+                <span>🔊</span> Escuchar de Nuevo
+            </button>
+
+            <div class="recording-indicator" id="recordingIndicator">
+                Grabando tu pronunciación...
+            </div>
+
+            <div class="buttons-group">
+                <button class="btn-record" id="btnRecord">
+                    <span>🎤</span> Grabar
+                </button>
+                <button class="btn-record" id="btnPlayback" style="background: #9c27b0;">
+                    <span>🔊</span> Escuchar Mi Voz
+                </button>
+            </div>
+
+            <div class="message-box" id="feedbackBox" style="display: none;">
+                <div class="message-text" id="feedbackText"></div>
+                <div class="score-text" id="scoreText"></div>
+            </div>
+
+            <button class="btn-next" id="btnNext">
+                Siguiente Número →
+            </button>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">Puntuación Promedio</div>
+                    <div class="stat-value" id="avgScore">0%</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Números Completados</div>
+                    <div class="stat-value" id="completed">0/10</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/speech.js"></script>
+    <script>
+        const numerosFrances = {
+            1: { palabra: "un", tip: "El número uno es 'un'. Pronuncia: UN." },
+            2: { palabra: "deux", tip: "El número dos es 'deux'. Suena como: DÖ." },
+            3: { palabra: "trois", tip: "El número tres es 'trois'. Pronuncia: TRUA." },
+            4: { palabra: "quatre", tip: "El número cuatro es 'quatre'. Suena como: KATR." },
+            5: { palabra: "cinq", tip: "El número cinco es 'cinq'. Pronuncia: SANK." },
+            6: { palabra: "six", tip: "El número seis es 'six'. Suena como: SIS." },
+            7: { palabra: "sept", tip: "El número siete es 'sept'. Pronuncia: SET." },
+            8: { palabra: "huit", tip: "El número ocho es 'huit'. Suena como: UIT." },
+            9: { palabra: "neuf", tip: "El número nueve es 'neuf'. Pronuncia: NÖF." },
+            10: { palabra: "dix", tip: "El número diez es 'dix'. Suena como: DIS." }
+        };
+
+        let currentNumber = 1;
+        let scores = [];
+        let recordedTranscript = "";
+        let recordedAlternatives = [];
+        let isProcessing = false;
+        let canContinue = false;
+
+        const statusEl = document.getElementById('status');
+        const btnRecord = document.getElementById('btnRecord');
+        const btnListen = document.getElementById('btnListen');
+        const recordingIndicator = document.getElementById('recordingIndicator');
+
+        // Avisa por adelantado si el micrófono no va a poder funcionar
+        // (file://, sin HTTPS o navegador sin soporte).
+        Voz.avisarProblemas(document.querySelector('.container'));
+
+        function setStatus(texto, clase) {
+            statusEl.textContent = texto;
+            statusEl.classList.remove('listening', 'processing');
+            if (clase) statusEl.classList.add(clase);
+        }
+
+        function startRecording() {
+            recordedTranscript = '';
+            recordedAlternatives = [];
+
+            Voz.grabar({
+                idioma: 'fr-FR',
+                onInicio: () => {
+                    btnRecord.classList.add('recording');
+                    recordingIndicator.classList.add('active');
+                    setStatus('🎤 Grabando tu pronunciación... (pulsa de nuevo para parar)', 'listening');
+                },
+                onParcial: (texto) => {
+                    setStatus(`🎤 Te escucho: "${texto}"`, 'listening');
+                },
+                onFin: (texto, info) => {
+                    btnRecord.classList.remove('recording');
+                    recordingIndicator.classList.remove('active');
+                    recordedTranscript = texto;
+                    recordedAlternatives = (info && info.alternativas) || [];
+
+                    if (texto) {
+                        evaluateAndContinue();
+                    } else if (info && info.soloAudio) {
+                        setStatus('🔊 Grabación lista. Este navegador no puntúa, pero puedes reescucharte.');
+                    } else {
+                        setStatus('❌ No se detectó tu voz. Vuelve a intentarlo.');
+                    }
+                },
+                onError: (mensaje) => {
+                    btnRecord.classList.remove('recording');
+                    recordingIndicator.classList.remove('active');
+                    setStatus('❌ ' + mensaje);
+                }
+            });
+        }
+
+        function speak(text, lang = 'es-ES', isMain = false) {
+            if (isMain) btnListen.classList.add('speaking');
+            return Voz.hablar(text, lang).then(() => {
+                if (isMain) btnListen.classList.remove('speaking');
+            });
+        }
+
+        function calculateSimilarity(str1, str2) {
+            if (str1 === str2) return 100;
+            const longer = str1.length > str2.length ? str1 : str2;
+            const shorter = str1.length > str2.length ? str2 : str1;
+            if (longer.length === 0) return 100;
+
+            const editDistance = getEditDistance(longer, shorter);
+            return Math.round(((longer.length - editDistance) / longer.length) * 100);
+        }
+
+        function getEditDistance(s1, s2) {
+            const costs = [];
+            for (let i = 0; i <= s1.length; i++) {
+                let lastValue = i;
+                for (let j = 0; j <= s2.length; j++) {
+                    if (i === 0) {
+                        costs[j] = j;
+                    } else if (j > 0) {
+                        let newValue = costs[j - 1];
+                        if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                        }
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+                if (i > 0) costs[s2.length] = lastValue;
+            }
+            return costs[s2.length];
+        }
+
+        function updateDisplay() {
+            const num = numerosFrances[currentNumber];
+            document.getElementById('numberDisplay').textContent = currentNumber;
+            document.getElementById('wordDisplay').textContent = num.palabra;
+            document.getElementById('stepNumber').textContent = currentNumber;
+
+            const progress = (currentNumber / Object.keys(numerosFrances).length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+
+            document.getElementById('completed').textContent = `${scores.length}/${Object.keys(numerosFrances).length}`;
+
+            const avgScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b) / scores.length) : 0;
+            document.getElementById('avgScore').textContent = avgScore + '%';
+
+            recordedTranscript = '';
+            recordedAlternatives = [];
+            document.getElementById('feedbackBox').style.display = 'none';
+            document.getElementById('btnNext').style.display = 'none';
+            setStatus('Escuchando al tutor...');
+        }
+
+        async function speakTutor() {
+            const num = numerosFrances[currentNumber];
+            document.getElementById('tutorMessage').textContent = num.tip;
+
+            // Parte 1: Introducción en español
+            const intro = `Número ${currentNumber}. `;
+            await speak(intro, 'es-ES', true);
+
+            // Parte 2: Pronunciar el número EN FRANCÉS
+            await speak(num.palabra, 'fr-FR', true);
+
+            // Parte 3: Instrucción en español
+            const instruccion = ` ${num.tip}. Ahora repite por favor.`;
+            await speak(instruccion, 'es-ES', true);
+
+            document.getElementById('status').textContent = '🎤 Presiona Grabar cuando estés listo';
+            document.getElementById('status').classList.remove('listening');
+        }
+
+        async function evaluateAndContinue() {
+            if (isProcessing) return;
+            isProcessing = true;
+            canContinue = false;
+
+            const num = numerosFrances[currentNumber];
+            const objetivo = Voz.normalizar(num.palabra);
+
+            // El reconocedor devuelve varias hipótesis: nos quedamos con la
+            // que más se acerque en lugar de castigar por su primera opción.
+            const candidatos = [recordedTranscript].concat(recordedAlternatives);
+            const similarity = Math.max(
+                ...candidatos.map(c => calculateSimilarity(objetivo, Voz.normalizar(c)))
+            );
+            scores.push(similarity);
+
+            const feedbackBox = document.getElementById('feedbackBox');
+            const feedbackText = document.getElementById('feedbackText');
+            const scoreText = document.getElementById('scoreText');
+
+            feedbackBox.className = 'message-box';
+            feedbackBox.style.display = 'block';
+
+            let feedback = "";
+            if (similarity >= 80) {
+                feedbackBox.classList.add('success');
+                feedbackText.textContent = '¡Excelente! Pronunciación casi perfecta.';
+                feedback = "Excelente. Tu pronunciación fue casi perfecta.";
+            } else if (similarity >= 60) {
+                feedbackBox.classList.add('partial');
+                feedbackText.textContent = 'Bien, pero puede mejorar.';
+                feedback = "Bien. Pero puede mejorar un poco. Intenta acercarte más a la pronunciación.";
+            } else {
+                feedbackBox.classList.add('error');
+                feedbackText.textContent = 'Sigue practicando.';
+                feedback = "Necesitas practicar más. Escucha bien la pronunciación e intenta de nuevo.";
+            }
+
+            scoreText.textContent = `Tu puntuación: ${similarity}%`;
+
+            await speak(feedback, 'es-ES', false);
+
+            // updateDisplay() lo oculta al cambiar de número: hay que volver
+            // a mostrarlo o la lección se queda atascada sin poder avanzar.
+            const btnNext = document.getElementById('btnNext');
+            btnNext.style.display = '';
+
+            if (currentNumber < Object.keys(numerosFrances).length) {
+                canContinue = true;
+                btnNext.disabled = false;
+                btnNext.textContent = 'Siguiente Número →';
+                btnNext.style.backgroundColor = '#27ae60';
+            } else {
+                feedbackText.textContent = '¡Completaste la lección!';
+                await speak("Felicidades. Completaste la lección. ¡Muy bien hecho!", 'es-ES', false);
+                btnNext.textContent = 'Comenzar de Nuevo';
+                btnNext.disabled = false;
+                btnNext.style.backgroundColor = '#667eea';
+                btnNext.onclick = () => location.reload();
+            }
+
+            isProcessing = false;
+        }
+
+        document.getElementById('startBtn').addEventListener('click', async () => {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('lessonContainer').classList.add('active');
+            updateDisplay();
+
+            // Pedir el micrófono aquí, dentro del clic, deja resuelto el
+            // permiso antes de la primera grabación en vez de sorprender
+            // al alumno con el diálogo a mitad de lección.
+            const permiso = await Voz.pedirPermiso();
+            if (permiso.ok) {
+                permiso.stream.getTracks().forEach(pista => pista.stop());
+            } else {
+                setStatus('⚠️ ' + permiso.mensaje);
+            }
+
+            speakTutor();
+        });
+
+        document.getElementById('btnListen').addEventListener('click', () => {
+            if (!isProcessing) speakTutor();
+        });
+
+        btnRecord.addEventListener('click', () => {
+            if (Voz.estaGrabando()) {
+                Voz.detener();
+            } else {
+                startRecording();
+            }
+        });
+
+        document.getElementById('btnPlayback').addEventListener('click', () => {
+            // Reproduce el audio real del micrófono; si el navegador no pudo
+            // grabarlo, al menos se lee la transcripción.
+            if (Voz.hayGrabacion()) {
+                Voz.reproducirGrabacion().catch(err => setStatus('❌ ' + err.message));
+            } else if (recordedTranscript) {
+                speak(recordedTranscript, 'fr-FR');
+            } else {
+                setStatus('Primero graba tu pronunciación con el botón 🎤 Grabar.');
+            }
+        });
+
+        document.getElementById('btnNext').addEventListener('click', () => {
+            console.log('Clic en Siguiente. canContinue:', canContinue, 'isProcessing:', isProcessing);
+            if (!isProcessing && canContinue) {
+                canContinue = false;
+                currentNumber++;
+                updateDisplay();
+                speakTutor();
+            }
+        });
+
+        // Iniciar
+        updateDisplay();
+    </script>
+</body>
+</html>
