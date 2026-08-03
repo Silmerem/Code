@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gramática en Inglés</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📘</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 720px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #0f8b7e;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .pantalla {
+            display: none;
+        }
+
+        .pantalla.activa {
+            display: block;
+        }
+
+        /* ---------- Selección de nivel ---------- */
+
+        .nivel {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #f5f7f6;
+            border: none;
+            border-left: 4px solid #11998e;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .nivel:hover {
+            background: #e8f6f2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.25);
+        }
+
+        .nivel h2 {
+            color: #333;
+            font-size: 19px;
+            margin-bottom: 6px;
+        }
+
+        .nivel p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .nivel .meta {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0f8b7e;
+            background: #d9f2ec;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .ajustes {
+            background: #f5f7f6;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 25px;
+        }
+
+        .ajustes-titulo {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .opciones-longitud {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            flex: 1;
+            min-width: 90px;
+            padding: 10px;
+            border: 2px solid #d7e3e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .chip.seleccionado {
+            border-color: #11998e;
+            background: #11998e;
+            color: white;
+        }
+
+        /* ---------- Cuestionario ---------- */
+
+        .barra-superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #777;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .etiqueta-tema {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0f8b7e;
+            background: #d9f2ec;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .frase {
+            font-size: 22px;
+            line-height: 1.6;
+            color: #222;
+            background: #f5f7f6;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .hueco {
+            display: inline-block;
+            min-width: 70px;
+            border-bottom: 3px solid #11998e;
+            text-align: center;
+            font-weight: 700;
+            color: #11998e;
+        }
+
+        .hueco.resuelto {
+            border-bottom-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .opciones {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .opcion {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #d7e3e0;
+            background: white;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .opcion:hover:not(:disabled) {
+            border-color: #11998e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.2);
+        }
+
+        .opcion:disabled {
+            cursor: default;
+        }
+
+        .opcion .tecla {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: #eef2f1;
+            color: #888;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .opcion.correcta {
+            border-color: #27ae60;
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .opcion.correcta .tecla {
+            background: #27ae60;
+            color: white;
+        }
+
+        .opcion.fallada {
+            border-color: #c62828;
+            background: #ffebee;
+            color: #b71c1c;
+        }
+
+        .opcion.fallada .tecla {
+            background: #c62828;
+            color: white;
+        }
+
+        .explicacion {
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .explicacion.acierto {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            color: #1b5e20;
+        }
+
+        .explicacion.fallo {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            color: #b71c1c;
+        }
+
+        .explicacion strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        button.principal {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #11998e;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        button.principal:hover {
+            background: #0d7d74;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.35);
+        }
+
+        button.secundaria {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #d7e3e0;
+            border-radius: 10px;
+            background: white;
+            color: #555;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        button.secundaria:hover {
+            border-color: #11998e;
+            color: #11998e;
+        }
+
+        .pista-teclado {
+            text-align: center;
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 15px;
+        }
+
+        /* ---------- Resultados ---------- */
+
+        .marcador {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .marcador .nota {
+            font-size: 56px;
+            font-weight: bold;
+            color: #11998e;
+            line-height: 1.1;
+        }
+
+        .marcador .detalle {
+            color: #666;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        .mensaje-final {
+            background: #f5f7f6;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            font-size: 15px;
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .repaso h3 {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .fallo-item {
+            background: #fff8f8;
+            border-left: 4px solid #c62828;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .fallo-item .fallo-frase {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .fallo-item .fallo-datos {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .fallo-item .bien {
+            color: #1b5e20;
+            font-weight: 700;
+        }
+
+        .fallo-item .mal {
+            color: #b71c1c;
+            text-decoration: line-through;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 25px; }
+            .header h1 { font-size: 24px; }
+            .frase { font-size: 18px; padding: 20px; }
+            .opcion { font-size: 16px; }
+            .marcador .nota { font-size: 44px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📘 Gramática en Inglés</h1>
+            <p>Elige la opción correcta para completar cada frase</p>
+        </div>
+
+        <!-- PANTALLA 1: elegir nivel -->
+        <div class="pantalla activa" id="pantallaInicio">
+            <button class="nivel" data-nivel="basica">
+                <h2>🌱 Básica</h2>
+                <p>Presente y pasado simple, artículos, plurales, preposiciones, comparativos y modales sencillos.</p>
+                <span class="meta" data-meta="basica"></span>
+            </button>
+
+            <button class="nivel" data-nivel="intermedia">
+                <h2>🌿 Intermedia</h2>
+                <p>Present perfect, condicionales, pasiva, estilo indirecto, relativos y patrones verbales.</p>
+                <span class="meta" data-meta="intermedia"></span>
+            </button>
+
+            <button class="nivel" data-nivel="avanzada">
+                <h2>🌳 Avanzada</h2>
+                <p>Inversión, condicionales mixtos, cleft sentences, participio, subjuntivo y pasiva impersonal.</p>
+                <span class="meta" data-meta="avanzada"></span>
+            </button>
+
+            <div class="ajustes">
+                <div class="ajustes-titulo">Preguntas por ronda</div>
+                <div class="opciones-longitud" id="opcionesLongitud">
+                    <button class="chip seleccionado" data-longitud="10">10</button>
+                    <button class="chip" data-longitud="20">20</button>
+                    <button class="chip" data-longitud="0">Todas</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 2: cuestionario -->
+        <div class="pantalla" id="pantallaQuiz">
+            <div class="barra-superior">
+                <span id="contador">Pregunta 1 de 10</span>
+                <span id="aciertos">0 aciertos</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progreso"></div>
+            </div>
+
+            <div class="etiqueta-tema" id="tema"></div>
+            <div class="frase" id="frase"></div>
+            <div class="opciones" id="opciones"></div>
+            <div class="explicacion" id="explicacion" style="display: none;"></div>
+
+            <button class="principal" id="btnSiguiente" style="display: none;">Siguiente →</button>
+            <button class="secundaria" id="btnSalir">Salir al menú</button>
+            <div class="pista-teclado">Atajos: 1, 2, 3 para responder · Enter para continuar</div>
+        </div>
+
+        <!-- PANTALLA 3: resultados -->
+        <div class="pantalla" id="pantallaFinal">
+            <div class="marcador">
+                <div class="nota" id="notaFinal">0%</div>
+                <div class="detalle" id="detalleFinal"></div>
+            </div>
+            <div class="mensaje-final" id="mensajeFinal"></div>
+            <div class="repaso" id="repaso"></div>
+            <button class="principal" id="btnRepasar" style="display: none;">Repasar solo las falladas</button>
+            <button class="secundaria" id="btnOtraRonda">Otra ronda del mismo nivel</button>
+            <button class="secundaria" id="btnCambiarNivel">Cambiar de nivel</button>
+        </div>
+    </div>
+
+    <script src="js/gramatica-basica.js"></script>
+    <script src="js/gramatica-intermedia.js"></script>
+    <script src="js/gramatica-avanzada.js"></script>
+    <script>
+        const NOMBRES = { basica: 'Básica', intermedia: 'Intermedia', avanzada: 'Avanzada' };
+        const CLAVE_ALMACEN = 'gramatica-ingles-records';
+
+        let nivelActual = null;
+        let longitudRonda = 10;
+        let ronda = [];
+        let indice = 0;
+        let aciertos = 0;
+        let falladas = [];
+        let respondida = false;
+
+        /* ---------------- utilidades ---------------- */
+
+        function mezclar(lista) {
+            const copia = lista.slice();
+            for (let i = copia.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copia[i], copia[j]] = [copia[j], copia[i]];
+            }
+            return copia;
+        }
+
+        function mostrarPantalla(id) {
+            document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+        }
+
+        function leerRecords() {
+            try {
+                return JSON.parse(localStorage.getItem(CLAVE_ALMACEN)) || {};
+            } catch (error) {
+                return {};   // almacenamiento bloqueado o dato corrupto
+            }
+        }
+
+        function guardarRecord(nivel, porcentaje) {
+            try {
+                const records = leerRecords();
+                if (!records[nivel] || porcentaje > records[nivel]) {
+                    records[nivel] = porcentaje;
+                    localStorage.setItem(CLAVE_ALMACEN, JSON.stringify(records));
+                }
+            } catch (error) { /* modo incógnito: se juega igual, sin guardar */ }
+        }
+
+        function pintarMetadatos() {
+            const records = leerRecords();
+            document.querySelectorAll('[data-meta]').forEach(etiqueta => {
+                const nivel = etiqueta.dataset.meta;
+                const total = window.BANCO_GRAMATICA[nivel].length;
+                const record = records[nivel];
+                etiqueta.textContent =
+                    total + ' preguntas' + (record !== undefined ? ' · mejor marca ' + record + '%' : '');
+            });
+        }
+
+        /* ---------------- ronda ---------------- */
+
+        function empezar(nivel, preguntas) {
+            nivelActual = nivel;
+            const banco = preguntas || window.BANCO_GRAMATICA[nivel];
+            const mezcladas = mezclar(banco);
+
+            ronda = (longitudRonda > 0 && !preguntas)
+                ? mezcladas.slice(0, Math.min(longitudRonda, mezcladas.length))
+                : mezcladas;
+
+            indice = 0;
+            aciertos = 0;
+            falladas = [];
+            mostrarPantalla('pantallaQuiz');
+            pintarPregunta();
+        }
+
+        function pintarPregunta() {
+            respondida = false;
+            const pregunta = ronda[indice];
+
+            document.getElementById('contador').textContent =
+                `Pregunta ${indice + 1} de ${ronda.length}`;
+            document.getElementById('aciertos').textContent =
+                `${aciertos} ${aciertos === 1 ? 'acierto' : 'aciertos'}`;
+            document.getElementById('progreso').style.width =
+                (indice / ronda.length) * 100 + '%';
+            document.getElementById('tema').textContent = pregunta.tema;
+
+            document.getElementById('frase').innerHTML =
+                escapar(pregunta.frase).replace('___', '<span class="hueco" id="hueco">___</span>');
+
+            // Se barajan las opciones en cada ronda para que no se memorice la posición.
+            const orden = mezclar(pregunta.opciones.map((texto, i) => ({ texto, original: i })));
+            const contenedor = document.getElementById('opciones');
+            contenedor.innerHTML = '';
+
+            orden.forEach((opcion, posicion) => {
+                const boton = document.createElement('button');
+                boton.className = 'opcion';
+                boton.dataset.texto = opcion.texto;
+                boton.innerHTML = `<span class="tecla">${posicion + 1}</span><span>${escapar(opcion.texto)}</span>`;
+                boton.addEventListener('click', () => responder(opcion, boton));
+                contenedor.appendChild(boton);
+            });
+
+            document.getElementById('explicacion').style.display = 'none';
+            document.getElementById('btnSiguiente').style.display = 'none';
+        }
+
+        function responder(opcion, boton) {
+            if (respondida) return;
+            respondida = true;
+
+            const pregunta = ronda[indice];
+            const acertada = opcion.original === pregunta.correcta;
+            const textoCorrecto = pregunta.opciones[pregunta.correcta];
+            const botones = Array.from(document.querySelectorAll('.opcion'));
+
+            botones.forEach(b => {
+                b.disabled = true;
+                if (b.dataset.texto === textoCorrecto) b.classList.add('correcta');
+            });
+            if (!acertada) boton.classList.add('fallada');
+
+            const hueco = document.getElementById('hueco');
+            if (hueco) {
+                hueco.textContent = textoCorrecto;
+                hueco.classList.add('resuelto');
+            }
+
+            const explicacion = document.getElementById('explicacion');
+            explicacion.className = 'explicacion ' + (acertada ? 'acierto' : 'fallo');
+            explicacion.innerHTML = acertada
+                ? `<strong>✅ Correcto</strong>${escapar(pregunta.explicacion)}`
+                : `<strong>❌ La respuesta correcta era «${escapar(textoCorrecto)}»</strong>${escapar(pregunta.explicacion)}`;
+            explicacion.style.display = 'block';
+
+            if (acertada) {
+                aciertos++;
+            } else {
+                falladas.push({ pregunta: pregunta, elegida: opcion.texto });
+            }
+
+            document.getElementById('aciertos').textContent =
+                `${aciertos} ${aciertos === 1 ? 'acierto' : 'aciertos'}`;
+
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            btnSiguiente.textContent = (indice + 1 < ronda.length) ? 'Siguiente →' : 'Ver resultados';
+            btnSiguiente.style.display = 'block';
+        }
+
+        function siguiente() {
+            if (!respondida) return;
+            indice++;
+            if (indice < ronda.length) {
+                pintarPregunta();
+            } else {
+                terminar();
+            }
+        }
+
+        function terminar() {
+            const porcentaje = Math.round((aciertos / ronda.length) * 100);
+            guardarRecord(nivelActual, porcentaje);
+
+            document.getElementById('notaFinal').textContent = porcentaje + '%';
+            document.getElementById('detalleFinal').textContent =
+                `${aciertos} de ${ronda.length} correctas · nivel ${NOMBRES[nivelActual].toLowerCase()}`;
+
+            let mensaje;
+            if (porcentaje >= 90) {
+                mensaje = 'Dominas este nivel. Prueba el siguiente para seguir avanzando.';
+            } else if (porcentaje >= 70) {
+                mensaje = 'Buen resultado. Repasa los fallos y vuelve a intentarlo.';
+            } else if (porcentaje >= 50) {
+                mensaje = 'Vas por buen camino, pero conviene repasar los temas fallados.';
+            } else {
+                mensaje = 'Este nivel se te resiste todavía. Repasa las explicaciones con calma y repite la ronda.';
+            }
+
+            const temasFallados = [...new Set(falladas.map(f => f.pregunta.tema))];
+            if (temasFallados.length) {
+                mensaje += ` Temas a repasar: ${temasFallados.join(', ')}.`;
+            }
+            document.getElementById('mensajeFinal').textContent = mensaje;
+
+            const repaso = document.getElementById('repaso');
+            repaso.innerHTML = '';
+            if (falladas.length) {
+                const titulo = document.createElement('h3');
+                titulo.textContent = `Fallos de esta ronda (${falladas.length})`;
+                repaso.appendChild(titulo);
+
+                falladas.forEach(fallo => {
+                    const correcta = fallo.pregunta.opciones[fallo.pregunta.correcta];
+                    const item = document.createElement('div');
+                    item.className = 'fallo-item';
+                    item.innerHTML =
+                        `<div class="fallo-frase">${escapar(fallo.pregunta.frase).replace('___', '<strong>' + escapar(correcta) + '</strong>')}</div>` +
+                        `<div class="fallo-datos">Tu respuesta: <span class="mal">${escapar(fallo.elegida)}</span> · ` +
+                        `Correcta: <span class="bien">${escapar(correcta)}</span><br>${escapar(fallo.pregunta.explicacion)}</div>`;
+                    repaso.appendChild(item);
+                });
+            }
+
+            document.getElementById('btnRepasar').style.display = falladas.length ? 'block' : 'none';
+            mostrarPantalla('pantallaFinal');
+        }
+
+        function escapar(texto) {
+            const div = document.createElement('div');
+            div.textContent = texto;
+            return div.innerHTML;
+        }
+
+        /* ---------------- eventos ---------------- */
+
+        document.querySelectorAll('.nivel').forEach(boton => {
+            boton.addEventListener('click', () => empezar(boton.dataset.nivel));
+        });
+
+        document.querySelectorAll('#opcionesLongitud .chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('#opcionesLongitud .chip')
+                    .forEach(c => c.classList.remove('seleccionado'));
+                chip.classList.add('seleccionado');
+                longitudRonda = Number(chip.dataset.longitud);
+            });
+        });
+
+        document.getElementById('btnSiguiente').addEventListener('click', siguiente);
+
+        document.getElementById('btnSalir').addEventListener('click', () => {
+            pintarMetadatos();
+            mostrarPantalla('pantallaInicio');
+        });
+
+        document.getElementById('btnOtraRonda').addEventListener('click', () => empezar(nivelActual));
+
+        document.getElementById('btnRepasar').addEventListener('click', () => {
+            empezar(nivelActual, falladas.map(f => f.pregunta));
+        });
+
+        document.getElementById('btnCambiarNivel').addEventListener('click', () => {
+            pintarMetadatos();
+            mostrarPantalla('pantallaInicio');
+        });
+
+        document.addEventListener('keydown', evento => {
+            if (!document.getElementById('pantallaQuiz').classList.contains('activa')) return;
+
+            if (['1', '2', '3'].includes(evento.key) && !respondida) {
+                const botones = document.querySelectorAll('.opcion');
+                const elegido = botones[Number(evento.key) - 1];
+                if (elegido) elegido.click();
+            } else if (evento.key === 'Enter' && respondida) {
+                siguiente();
+            }
+        });
+
+        pintarMetadatos();
+    </script>
+</body>
+</html>
