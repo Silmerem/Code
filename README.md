@@ -10,6 +10,7 @@ francés. Todo funciona en el navegador, sin servidor ni dependencias.
 | `tutor-interactivo.html` | Lección guiada de números en francés del 1 al 10, con puntuación |
 | `tutor-2.0.html` | La misma lección, más directa |
 | `numeros-frances.html` | Práctica libre del 1 al 100 en orden aleatorio |
+| `flight-tracker/index.html` | Tablero de precios de vuelos rastreados desde Londres (ver sección aparte) |
 | `js/gramatica-*.js` | Banco de preguntas, un archivo por nivel |
 | `js/speech.js` | Módulo compartido: permisos, grabación, reconocimiento y síntesis |
 
@@ -112,3 +113,25 @@ Puntos a tener en cuenta si tocas el módulo:
   Chrome), un temporizador la libera para que la lección no se quede bloqueada.
 - Los errores del reconocedor se traducen a mensajes accionables en vez de
   mostrar códigos como `not-allowed`.
+
+## Rastreador de precios de vuelos
+
+`flight-tracker/index.html` es un dashboard con los precios más baratos
+encontrados en varias rutas desde Londres (Ciudad de México, Bilbao, Madrid,
+París). Carga sola `flight-tracker/flight_price_history.csv`, así que no hace
+falta tocar nada para verla actualizada.
+
+Los datos vienen de dos scripts en la raíz del repo:
+
+- `flight_price_tracker.py` — API Tequila de Kiwi.com (`TEQUILA_API_KEY`).
+- `flight_price_tracker_travelpayouts.py` — Travelpayouts (`TRAVELPAYOUTS_API_TOKEN`),
+  datos en caché de 2–7 días, es el que corre automáticamente.
+
+El workflow `.github/workflows/flight-price-tracker.yml` corre
+`flight_price_tracker_travelpayouts.py` una vez al día, guarda el historial en
+`flight_price_history.csv` y lo copia a `flight-tracker/` para que el dashboard
+lo sirva. Necesita el secret `TRAVELPAYOUTS_API_TOKEN` cargado en
+Settings → Secrets and variables → Actions de este repo.
+
+Para editar las rutas rastreadas, tocá la lista `ROUTES` en
+`flight_price_tracker_travelpayouts.py`.
