@@ -26,28 +26,28 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: requirements.txt
+          cache-dependency-path: tracker/requirements.txt
 
       - name: Instalar dependencias
-        run: pip install -r requirements.txt
+        run: pip install -r tracker/requirements.txt
 
       - name: Consultar precios
         env:
           TRAVELPAYOUTS_API_TOKEN: ${{ secrets.TRAVELPAYOUTS_API_TOKEN }}
-        run: python3 flight_price_tracker_travelpayouts.py
+        run: python3 tracker/flight_price_tracker_travelpayouts.py
 
       - name: Publicar historico para el dashboard (flight-tracker/)
         run: |
-          if [ -f flight_price_history.csv ]; then
-            cp flight_price_history.csv flight-tracker/flight_price_history.csv
+          if [ -f tracker/flight_price_history.csv ]; then
+            cp tracker/flight_price_history.csv flight-tracker/flight_price_history.csv
           fi
 
       - name: Guardar historico
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -f flight_price_history.csv ]; then
-            git add flight_price_history.csv flight-tracker/flight_price_history.csv
+          if [ -f tracker/flight_price_history.csv ]; then
+            git add tracker/flight_price_history.csv flight-tracker/flight_price_history.csv
           fi
           if git diff --staged --quiet; then
             echo "Sin cambios en el historial (o la consulta no encontro ofertas)"
