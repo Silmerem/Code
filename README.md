@@ -121,17 +121,31 @@ encontrados en varias rutas desde Londres (Ciudad de México, Bilbao, Madrid,
 París). Carga sola `flight-tracker/flight_price_history.csv`, así que no hace
 falta tocar nada para verla actualizada.
 
-Los datos vienen de dos scripts en la raíz del repo:
+Los datos vienen de dos scripts en `tracker/`:
 
-- `flight_price_tracker.py` — API Tequila de Kiwi.com (`TEQUILA_API_KEY`).
-- `flight_price_tracker_travelpayouts.py` — Travelpayouts (`TRAVELPAYOUTS_API_TOKEN`),
+- `tracker/flight_price_tracker.py` — API Tequila de Kiwi.com (`TEQUILA_API_KEY`).
+- `tracker/flight_price_tracker_travelpayouts.py` — Travelpayouts (`TRAVELPAYOUTS_API_TOKEN`),
   datos en caché de 2–7 días, es el que corre automáticamente.
 
 El workflow `.github/workflows/flight-price-tracker.yml` corre
-`flight_price_tracker_travelpayouts.py` una vez al día, guarda el historial en
-`flight_price_history.csv` y lo copia a `flight-tracker/` para que el dashboard
-lo sirva. Necesita el secret `TRAVELPAYOUTS_API_TOKEN` cargado en
-Settings → Secrets and variables → Actions de este repo.
+`tracker/flight_price_tracker_travelpayouts.py` una vez al día, guarda el
+historial en `tracker/flight_price_history.csv` y lo copia a `flight-tracker/`
+para que el dashboard lo sirva. Necesita el secret `TRAVELPAYOUTS_API_TOKEN`
+cargado en Settings → Secrets and variables → Actions de este repo.
 
 Para editar las rutas rastreadas, tocá la lista `ROUTES` en
-`flight_price_tracker_travelpayouts.py`.
+`tracker/flight_price_tracker_travelpayouts.py`.
+
+## Despliegue en Vercel
+
+El sitio es estático y se sirve desde la raíz del repositorio; no hay build.
+
+**En la raíz no puede haber Python.** Vercel decide qué clase de proyecto es
+mirando la carpeta donde construye: si encuentra ahí un `requirements.txt` o
+ficheros `.py`, lo da por proyecto de Python y se para en dos segundos buscando
+un entrypoint que no existe (`No python entrypoint found`). El `.vercelignore`
+no lo evita, porque descarta los ficheros *después* de clonar, cuando la
+detección ya ha decidido. Por eso el rastreador vive en `tracker/` y el
+`vercel.json` fija `framework: null` en vez de dejarlo a la detección.
+
+Si añadís código Python nuevo, ponelo siempre dentro de una carpeta.

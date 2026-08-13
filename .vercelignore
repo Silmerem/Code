@@ -1,0 +1,13 @@
+# El rastreador de vuelos solo lo usa el workflow de GitHub Actions: fuera del
+# despliegue.
+#
+# Esto adelgaza el paquete, pero NO evita que Vercel detecte el proyecto como
+# Python: los ficheros se descartan despues de clonar, cuando la deteccion ya
+# ha decidido. Por eso ademas no queda ningun .py ni requirements.txt en la
+# raiz del repositorio, que es donde Vercel mira.
+tracker/
+requirements.txt
+pyproject.toml
+*.py
+__pycache__/
+*.pyc
